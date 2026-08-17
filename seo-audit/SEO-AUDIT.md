@@ -34,6 +34,13 @@ So the real work is not "get 100 pages indexed." It is:
 
 Based on what the crawl found, your six buckets are almost certainly:
 
+> **Correction (verified 2026-08-17 against Google's official structured data gallery):** an earlier revision
+> of this report described FAQ rich results as "restricted since Aug 2023 to well-known government and health
+> sites." That was true from August 2023 but is now out of date. **Google fully removed the FAQ rich result on
+> 7 May 2026**, including for the gov/health sites that had retained it. `FAQPage` no longer appears anywhere
+> in Google's supported-features list. The Search Console report and Rich Results Test support were dropped in
+> June 2026 and Search Console API support ends this month (August 2026). See P2-5 for the corrected guidance.
+
 | GSC reason | Approx. count | Verdict |
 |---|---|---|
 | Page with redirect | ~134 | Benign by design, but see P1-1 (the 33 `302`s are wrong) and P0-3 (`/sustainability` is in your sitemap) |
@@ -317,8 +324,8 @@ You currently emit a lot of markup that produces no rich result. Measured invent
 
 | Type | Instances | Google rich result status |
 |---|---|---|
-| `Question` / `Answer` | 153 each | **Restricted since Aug 2023** — FAQ rich results now show only for well-known government and health sites |
-| `FAQPage` | 19 | Same restriction — **produces nothing for a commercial ITAD site** |
+| `Question` / `Answer` | 153 each | **Dead.** Google removed the FAQ rich result entirely on 7 May 2026 |
+| `FAQPage` | 19 | **Dead.** No longer in Google's supported-features list for any site |
 | `Service` | 22 | **Not a rich result type in Google Search** |
 | `BreadcrumbList` | 30 | **Eligible — this is your one working rich result** |
 | `Organization` | 18 | Eligible, but broken by P0-1 |
@@ -329,12 +336,21 @@ The honest picture: **the only rich result you are currently eligible for is bre
 on `/specialty-equipment-we-handle`. Once P0-1 is fixed you add Organization/logo and local business
 eligibility, which for a Cincinnati ITAD firm is the valuable one.
 
-Do not delete the FAQ markup. It no longer earns a SERP rich result, but it remains a strong input to AI
-Overviews and LLM retrieval, and 153 well-written Q&A pairs are a genuine asset. Just stop expecting FAQ
-rich snippets and reallocate effort to the local business entity.
+**On the FAQ markup.** Google removed the FAQ rich result for everyone on 7 May 2026 — this is a full
+deprecation, not the 2023 gov/health restriction. Do not delete the markup anyway: `FAQPage` is still a valid
+schema.org type, Google has confirmed it still parses it for page comprehension, other engines still consume
+it, and your 153 Q&A pairs are a genuine content asset. Just stop treating it as a rich-result lever and
+reallocate the effort. One thing that *does* still matter: make sure the Q&A text is visible in the rendered
+HTML rather than hidden behind a JS-only accordion.
 
-**Do not** add `AggregateRating` or `Review` markup to your own pages to chase stars. Google's guidelines
-prohibit self-serving review markup for the entity itself and it triggers manual actions.
+**Do not** add `AggregateRating` or `Review` markup for your own business. Google's review snippet policy is
+explicit: "If the entity that's being reviewed controls the reviews about itself, their pages that use
+LocalBusiness or any other type of Organization structured data are ineligible for star review feature." This
+applies to embedded third-party widgets too. `/about/client-testimonials` is exactly the page where this
+temptation arises — resist it. It earns no stars and fabricated or misleading markup risks a manual action.
+
+For the full page-by-page plan of which rich results you *can* still win, see
+[`RICH-RESULTS-ROADMAP.md`](RICH-RESULTS-ROADMAP.md).
 
 ### P2-6. `/industries-served` and `/services` hub pages carry stub `ListItem` entries
 
