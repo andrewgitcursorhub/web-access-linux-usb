@@ -1,0 +1,105 @@
+{
+  "_comment": [
+    "Corrected pattern for the 22 service and industry pages.",
+    "",
+    "Replaces the current stub, which was:",
+    "  \"provider\": { \"@id\": \"https://core-asset-sol.com/#organization\",",
+    "                 \"@type\": \"Organization\", \"name\": \"...\", \"url\": \"...\" }",
+    "",
+    "That stub pointed at an @id defined only on the homepage. Google evaluates each",
+    "page independently and does NOT resolve @id across pages, so the provider",
+    "collapsed to two properties on all 22 pages.",
+    "",
+    "Do NOT simply rename that stub's @type to RecyclingCenter. RecyclingCenter is a",
+    "LocalBusiness subtype and Google requires name + address for LocalBusiness. A",
+    "RecyclingCenter with no address is an invalid LocalBusiness and would produce a",
+    "missing-required-field error on all 22 pages - worse than the plain Organization",
+    "stub it replaced.",
+    "",
+    "Instead, put the COMPLETE business node in the same @graph. Then provider can be",
+    "a pure @id reference and it resolves locally.",
+    "",
+    "The business node below is byte-identical on every page. Ship it as a shared",
+    "include via the same mechanism that server-renders the header and footer",
+    "(audit item P2-1) so it is authored once and cannot drift.",
+    "",
+    "This example is /services/data-destruction. For the other 21 pages change only",
+    "the Service node and the BreadcrumbList."
+  ],
+
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "RecyclingCenter",
+      "@id": "https://core-asset-sol.com/#organization",
+      "name": "Core Asset Solutions",
+      "url": "https://core-asset-sol.com/",
+      "telephone": "+1-513-433-7818",
+      "email": "info@core-asset-sol.com",
+      "priceRange": "$$",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://core-asset-sol.com/#logo",
+        "url": "https://core-asset-sol.com/assets/logo_website_final_cropped2.png",
+        "width": 600,
+        "height": 60
+      },
+      "image": { "@id": "https://core-asset-sol.com/#logo" },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "457 South Cooper Ave.",
+        "addressLocality": "Cincinnati",
+        "addressRegion": "OH",
+        "postalCode": "45215",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "REPLACE_WITH_REAL_LATITUDE",
+        "longitude": "REPLACE_WITH_REAL_LONGITUDE"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          "opens": "08:00",
+          "closes": "18:00"
+        }
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/company/coreassetsolutions/",
+        "https://www.facebook.com/CoreAssetSolutions/",
+        "https://www.instagram.com/coreassetsolutions/",
+        "https://x.com/coreassetsol"
+      ]
+    },
+
+    {
+      "@type": "Service",
+      "@id": "https://core-asset-sol.com/services/data-destruction#service",
+      "name": "Data Destruction",
+      "serviceType": "Data Destruction",
+      "url": "https://core-asset-sol.com/services/data-destruction",
+      "description": "Certified Data Destruction, NIST 800-88 Media Sanitization, Clear, Purge, Destroy Methods with Certificates of Destruction.",
+      "provider": { "@id": "https://core-asset-sol.com/#organization" },
+      "areaServed": [
+        { "@type": "City", "name": "Cincinnati", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Dayton", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "AdministrativeArea", "name": "Hamilton County", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "AdministrativeArea", "name": "Butler County", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "AdministrativeArea", "name": "Greene County", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "AdministrativeArea", "name": "Montgomery County", "containedInPlace": { "@type": "State", "name": "Ohio" } }
+      ]
+    },
+
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://core-asset-sol.com/services/data-destruction#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://core-asset-sol.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://core-asset-sol.com/services" },
+        { "@type": "ListItem", "position": 3, "name": "Data Destruction", "item": "https://core-asset-sol.com/services/data-destruction" }
+      ]
+    }
+  ]
+}

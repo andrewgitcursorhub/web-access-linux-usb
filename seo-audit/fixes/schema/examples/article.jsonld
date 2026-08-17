@@ -1,0 +1,42 @@
+{
+  "_comment": [
+    "Article - retype /resources/itad-circular-economy and /resources/reporting-esg,",
+    "which are currently generic WebPage.",
+    "",
+    "Be realistic about the upside: Article rich results are strongest for news and",
+    "Discover. For a B2B service site the visual gain is modest. The real value is",
+    "author, datePublished and dateModified as E-E-A-T signals, which matter a great",
+    "deal when you are selling regulatory compliance.",
+    "",
+    "Required: headline.",
+    "",
+    "headline must be under 110 characters and should match the visible H1.",
+    "author must be a Person or Organization - a named Person with real credentials",
+    "is far stronger than the company name. Do not invent an author.",
+    "dateModified should be genuine; do not bump it without editing the content."
+  ],
+
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://core-asset-sol.com/resources/itad-circular-economy#article",
+      "headline": "REPLACE_WITH_HEADLINE_UNDER_110_CHARS",
+      "description": "REPLACE_WITH_SUMMARY",
+      "image": ["https://core-asset-sol.com/REPLACE_WITH_ARTICLE_IMAGE_16x9.jpg"],
+      "datePublished": "REPLACE_WITH_ISO_DATE",
+      "dateModified": "REPLACE_WITH_ISO_DATE",
+      "author": {
+        "@type": "Person",
+        "name": "REPLACE_WITH_AUTHOR_NAME",
+        "jobTitle": "REPLACE_WITH_TITLE",
+        "url": "https://core-asset-sol.com/about/team#REPLACE_WITH_SLUG",
+        "worksFor": { "@id": "https://core-asset-sol.com/#organization" }
+      },
+      "publisher": { "@id": "https://core-asset-sol.com/#organization" },
+      "isPartOf": { "@id": "https://core-asset-sol.com/#website" },
+      "mainEntityOfPage": "https://core-asset-sol.com/resources/itad-circular-economy",
+      "inLanguage": "en-US"
+    }
+  ]
+}
