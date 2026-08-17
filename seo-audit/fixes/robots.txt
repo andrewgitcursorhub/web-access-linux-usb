@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Navigation fragments injected by /assets/app.js. They return HTTP 200 with no
+# <title>, no canonical, and no robots directive, so Google files them under
+# "Crawled - currently not indexed". Blocked here AND sent X-Robots-Tag: noindex
+# via _headers, because robots.txt alone will not remove an already-indexed URL.
+Disallow: /partials/
+
+# The 404 template is reachable at a real URL that returns HTTP 200, which Google
+# classifies as a soft 404. Blocking is the quick fix; the correct fix is to make
+# these paths return a genuine 404 status.
+Disallow: /404
+Disallow: /404.html
+
+# Cloudflare email-obfuscation endpoint. Returns 404 and is linked from /contact,
+# /faqs, and /privacy.
+Disallow: /cdn-cgi/
+
+Sitemap: https://core-asset-sol.com/sitemap.xml

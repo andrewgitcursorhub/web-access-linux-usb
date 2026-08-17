@@ -1,0 +1,14 @@
+# Cloudflare Pages _headers
+# Place at the root of the build output directory.
+
+# Navigation fragments must never be indexed as standalone pages.
+# robots.txt Disallow prevents crawling but cannot remove a URL that is already
+# indexed. X-Robots-Tag can. Deploy this first, let Google recrawl and drop the
+# URLs, then the robots.txt Disallow keeps them out.
+/partials/*
+  X-Robots-Tag: noindex, nofollow
+
+# PDFs are indexable documents and should carry their own indexing directives.
+# These are legitimate lead magnets - keep them indexable, but make it explicit.
+/resources/*.pdf
+  X-Robots-Tag: index, follow, max-snippet:-1, max-image-preview:large

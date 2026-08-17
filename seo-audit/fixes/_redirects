@@ -1,0 +1,39 @@
+# Cloudflare Pages _redirects
+# Place at the root of the build output directory.
+# Syntax: /from  /to  <status>
+# Cloudflare Pages already handles .html stripping and trailing-slash
+# normalisation automatically, so those rules are deliberately NOT repeated here.
+
+# --- P1-3: typo'd PDF, currently 404, linked from two industry pages ----------
+# The real file uses underscores. Fix the two <a href> values in the page source
+# as the primary fix; this rule catches anything already shared externally.
+/resources/Certificate-Of-Destruction.pdf   /resources/Certificate_Of_Destruction.pdf   301
+
+# --- P3-7: root double slash currently returns 200, a duplicate of the homepage
+//                                          /                                          301
+
+# --- Existing redirects, documented so they are not accidentally removed ------
+# These are all correct. Keep them for at least 12 months.
+/sustainability                             /resources/reporting-esg                   301
+/industries                                 /industries-served                         301
+/locations                                  /about/locations                           301
+/schedule-consultation                      /schedule-consultation-form                301
+/resources/sample-certificate-of-media-sanitization.pdf  /resources/Certificate_Media_Sanitization.pdf  301
+
+# --- P0-4: www ---------------------------------------------------------------
+# www.core-asset-sol.com currently has NO DNS record and fails to resolve.
+# This rule cannot work until DNS exists. In Cloudflare DNS add:
+#     Type: CNAME   Name: www   Target: core-asset-sol.com   Proxy: ON
+# then add the redirect as a Cloudflare Redirect Rule (Rules > Redirect Rules),
+# because _redirects only applies to requests already routed to this Pages
+# project and cannot match on hostname:
+#     When:  hostname eq "www.core-asset-sol.com"
+#     Then:  Static/Dynamic redirect to
+#            concat("https://core-asset-sol.com", http.request.uri.path)
+#            Status 301, preserve query string
+
+# --- NOT recommended ---------------------------------------------------------
+# Do NOT add a catch-all such as:  /*  /  301
+# Redirecting unknown URLs to the homepage is treated by Google as a soft 404 and
+# is worse than a clean 404. The site currently returns proper 404s for unknown
+# paths - keep that behaviour.
