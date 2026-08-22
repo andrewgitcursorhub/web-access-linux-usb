@@ -10,6 +10,25 @@ official schema.org vocabulary (every type, property and enum in all five files:
 | `2-industries-overview.jsonld` | `/industries-served` |
 | `3-service-data-destruction.jsonld` | `/services/data-destruction` — pattern for all 7 service pages |
 | `4-industry-healthcare.jsonld` | `/industries-served/healthcare` — pattern for all 8 industry pages |
+| `5-about-page.jsonld` | `/about` — `AboutPage`, not `ProfilePage` |
+| `6-team-page.jsonld` | `/about/team` — three `Person` nodes, not `ProfilePage` |
+| `7-article-circular-economy.jsonld` | `/resources/itad-circular-economy` — `TechArticle` |
+
+### People, authorship and articles — the short version
+
+- **`/about` is an `AboutPage`.** ProfilePage requires a *single* subject; your About page has
+  four (company overview, client experience, resources, team). Your live markup already uses
+  `AboutPage` — keep it.
+- **`/about/team` with three people is *not* a `ProfilePage`** either, for the same reason.
+  Use `CollectionPage` + `ItemList` + three `Person` nodes with stable `@id`s. ProfilePage
+  becomes correct only if you build one page per person. I recommended ProfilePage for this
+  page in an earlier note; that was wrong and template 6 supersedes it.
+- **Company vs personal LinkedIn** separate structurally: `linkedin.com/company/…` goes in
+  `Organization.sameAs`, `linkedin.com/in/…` goes in `Person.sameAs`, never both in one array.
+  Connect them with `Person.worksFor`, not by sharing `sameAs`.
+- **`Article` belongs on `/resources/itad-circular-economy`** (1,405 words, genuinely
+  editorial) but **not** on `/resources/reporting-esg` (524 words, service description in a
+  resources URL). See template 7.
 
 ---
 

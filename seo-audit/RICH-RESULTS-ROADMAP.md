@@ -183,13 +183,25 @@ expertise is the product.
 
 Example: [`fixes/schema/examples/article.jsonld`](fixes/schema/examples/article.jsonld)
 
-**5. Profile page** for team bios
+**5. Team page** for staff bios
 
-`ProfilePage` + `Person` on an `/about/team` page. Named people with real credentials (R2v3 lead auditor,
-NAID-certified technicians) is one of the strongest E-E-A-T signals available to a business selling regulatory
-compliance.
+> **Correction (2026-08-22).** This section originally said to put `ProfilePage` on
+> `/about/team`. That is wrong. Google requires a profile page's "primary focus" to be a
+> **single** person or organization, and `mainEntity` takes one entity, not a list. A
+> three-person roster page fails that test.
+>
+> Use `CollectionPage` + `ItemList` + one `Person` node per member, each with a stable `@id`.
+> `ProfilePage` becomes correct only when you build a dedicated page per person
+> (`/about/team/will-gibson`) — Google's own examples confirm "an employee page on a company
+> website" qualifies at that level.
+>
+> Working template: [`structured-data/6-team-page.jsonld`](structured-data/6-team-page.jsonld).
+> The older `fixes/schema/examples/profile-page.jsonld` shows the single-person shape and is
+> correct only for a one-person-per-URL page.
 
-Example: [`fixes/schema/examples/profile-page.jsonld`](fixes/schema/examples/profile-page.jsonld)
+Named people with real credentials (R2v3 lead auditor, NAID-certified technicians) remain one of the strongest
+E-E-A-T signals available to a business selling regulatory compliance. Neither `Person` nor `ProfilePage`
+produces a rich result — the payoff is entity understanding and author attribution on your resource content.
 
 ### Conditional
 
