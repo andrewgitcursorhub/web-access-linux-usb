@@ -29,31 +29,49 @@
 #
 # Every www URL, whatever the path, lands on the same 404.
 #
-# Root cause: ":splat" is _redirects syntax. It only interpolates inside a
-# Cloudflare Pages _redirects file. The www rule is running as a Cloudflare
-# Redirect Rule at the edge (no cf-cache-status header, no
-# access-control-allow-origin - not a Pages response), set to Static, and a
-# static target is emitted verbatim.
+# Root cause: ":splat" is Netlify / Cloudflare Pages _redirects syntax. It means
+# nothing in a Cloudflare Redirect Rule, whose wildcard replacement syntax is
+# ${1} / ${2}. Cloudflare treated ":splat" as a literal string and copied it into
+# the Location header verbatim.
+#
+# The rule is running as a Cloudflare Redirect Rule at the edge, not through
+# Pages - the response has no cf-cache-status and no access-control-allow-origin,
+# so it never reaches this file.
 #
 # It cannot live in this file either way: Cloudflare Pages does not support
 # domain-level redirects in _redirects, because _redirects cannot match on
 # hostname. Attempting "/*  https://core-asset-sol.com/:splat  301" here would
 # also match apex requests and cause an infinite redirect loop.
 #
-# CORRECT FIX - Cloudflare dashboard > zone > Rules > Redirect Rules:
-#     If:    (http.host eq "www.core-asset-sol.com")
-#     Then:  type = DYNAMIC   (not Static - this is the actual bug)
-#            expression = concat("https://core-asset-sol.com", http.request.uri.path)
-#            status = 301
-#            preserve query string = ON
+# CORRECT FIX - Cloudflare dashboard > zone > Rules > Redirect Rules.
+# Using the Wildcard pattern mode the dashboard defaults to:
 #
-# Also: http://www (port 80) currently returns 522. Ensure the rule matches on
-# hostname only with no scheme/ssl condition, and that the www DNS record is
-# proxied (orange cloud), not DNS-only.
+#     When incoming requests match -> Wildcard pattern
+#       Request URL:  http*://www.core-asset-sol.com/*
+#     Then
+#       Target URL:   https://core-asset-sol.com/${2}
+#       Status code:  301
+#       Preserve query string: Enabled
+#
+# WATCH THE NUMBERING. ${1}/${2} refer to the asterisks in the Request URL, in
+# order. In the pattern above the first * is the "s" in http*, so the PATH is
+# the SECOND capture:
+#     https://www.core-asset-sol.com/*   -> 1 wildcard  -> path is ${1}
+#     http*://www.core-asset-sol.com/*   -> 2 wildcards -> path is ${2}
+#
+# The leading http*:// also matches port 80, which fixes the separate 522 error
+# on http://www.core-asset-sol.com/. Confirm the www DNS record is proxied
+# (orange cloud), not DNS-only.
+#
+# Equivalent using the expression editor instead:
+#     If:    (http.host eq "www.core-asset-sol.com")
+#     Then:  type = Dynamic
+#            expression = concat("https://core-asset-sol.com", http.request.uri.path)
 #
 # Verify:
 #     curl -sSI https://www.core-asset-sol.com/contact | grep -iE '^(HTTP|location)'
 #     -> want: 301 and location: https://core-asset-sol.com/contact
+#        NOT /:splat, NOT /${2}, NOT a bare /
 
 # --- NOT recommended ---------------------------------------------------------
 # Do NOT add a catch-all such as:  /*  /  301

@@ -75,46 +75,97 @@ domain-level redirects there, because `_redirects` cannot match on hostname.
 So: `_redirects`-style syntax was pasted into a Cloudflare Redirect Rule set to **Static**,
 and a static target is emitted verbatim.
 
-### The fix
+### The fix — using Wildcard pattern (what the dashboard shows you)
 
-Cloudflare dashboard → select the `core-asset-sol.com` zone → **Rules** → **Redirect Rules** →
-edit the www rule.
+Cloudflare's Redirect Rules editor offers three matching modes. If yours is set to **Wildcard
+pattern**, stay there — it is the simplest correct option for this rule and you do **not** need
+a custom filter expression or `concat()`.
 
-**If** (custom filter expression):
-```
-(http.host eq "www.core-asset-sol.com")
-```
+Cloudflare dashboard → the `core-asset-sol.com` zone → **Rules** → **Redirect Rules** → edit the
+www rule:
 
-**Then** — change the type from *Static* to **Dynamic**, and use this expression:
-```
-concat("https://core-asset-sol.com", http.request.uri.path)
-```
+**When incoming requests match** → **Wildcard pattern**
 
-- Status code: **301**
-- Preserve query string: **ON**
+| Field | Value |
+|---|---|
+| Request URL | `http*://www.core-asset-sol.com/*` |
 
-Setting it to Dynamic is the whole fix. `concat()` builds the target per-request from the
-actual path; a Static URL cannot.
+**Then**
 
-### Also fix: `http://www` returns 522
+| Field | Value |
+|---|---|
+| Target URL | `https://core-asset-sol.com/${2}` |
+| Status code | `301` |
+| Preserve query string | **Enabled** |
+
+That is the whole fix. This mirrors Cloudflare's own documented example for redirecting one
+hostname to another while keeping the path and query string.
+
+#### Count your wildcards — this is where the numbering catches people
+
+`${1}`, `${2}` refer to the asterisks in the **Request URL**, in order. So the number you need
+depends on how you wrote the pattern:
+
+| Request URL | Asterisks | Path placeholder |
+|---|---|---|
+| `https://www.core-asset-sol.com/*` | 1 (the path) | `${1}` |
+| `http*://www.core-asset-sol.com/*` | 2 (scheme, then path) | **`${2}`** |
+
+In the recommended pattern the first `*` is the `s` in `http*`, so the path is the **second**
+capture. Using `${1}` there would insert the scheme fragment into the path — a different broken
+redirect with the same shape as the one you have now.
+
+#### Why the current rule emits a literal `:splat`
+
+`:splat` is Netlify / Cloudflare Pages `_redirects` syntax. It means nothing in a Redirect Rule.
+Cloudflare's wildcard replacement syntax is `${1}` / `${2}`, so `:splat` was treated as a literal
+string and copied into the `Location` header verbatim. That is exactly what we observe.
+
+#### This also fixes the `http://www` 522
 
 ```
 http://www.core-asset-sol.com/   ->  522   (Cloudflare connection timed out)
 http://core-asset-sol.com/       ->  301   (correct, this is the apex)
 ```
 
-Port 80 on www is not matching the rule, so Cloudflare falls through to an origin that is not
-there. Make sure the rule's expression matches on hostname only — do **not** add a
-`ssl`/scheme condition — and confirm the www DNS record is **proxied** (orange cloud), not
-DNS-only. Then verify with:
+Port 80 on www currently matches no rule, so Cloudflare falls through toward an origin that is
+not there. The leading `http*://` in the recommended pattern matches **both** `http` and `https`,
+so the same rule catches port 80 and the 522 goes away. Do not use a plain `https://` pattern
+unless you have a separate rule handling HTTP.
 
-```bash
-curl -sSI http://www.core-asset-sol.com/  | grep -iE '^(HTTP|location)'
-curl -sSI https://www.core-asset-sol.com/contact | grep -iE '^(HTTP|location)'
+Also confirm the `www` DNS record is **proxied** (orange cloud), not DNS-only.
+
+#### If you prefer the expression editor instead
+
+Switch **When incoming requests match** to **Custom filter expression**:
+
+```
+(http.host eq "www.core-asset-sol.com")
 ```
 
-You want `301` and `location: https://core-asset-sol.com/contact` — the real path, not
-`:splat`.
+then set Target URL type to **Dynamic** with:
+
+```
+concat("https://core-asset-sol.com", http.request.uri.path)
+```
+
+Functionally equivalent. Wildcard pattern is easier to read and less to get wrong — use it
+unless you need conditions the wildcard mode cannot express.
+
+### Verify
+
+```bash
+curl -sSI http://www.core-asset-sol.com/            | grep -iE '^(HTTP|location)'
+curl -sSI https://www.core-asset-sol.com/contact    | grep -iE '^(HTTP|location)'
+curl -sSI "https://www.core-asset-sol.com/services?utm_source=x" | grep -iE '^(HTTP|location)'
+```
+
+You want `301` every time, with `location:` showing the **real path** —
+`https://core-asset-sol.com/contact`, not `/:splat`, not `/${2}`, and not a bare `/`. The third
+check confirms the query string survives.
+
+Or just run `./verify.sh` — the P0-4 section now follows the redirect, rejects uninterpolated
+placeholders, checks the path is preserved, and confirms the destination returns 200.
 
 > **Priority note.** Fix this before anything else in this document. Right now www resolves,
 > so Google *will* crawl it, follow the 301, and index a 404 where previously it just saw a
