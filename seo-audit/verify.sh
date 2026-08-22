@@ -68,22 +68,47 @@ for u in "${SMU[@]}"; do
 done
 [ "$smbad" -eq 0 ] && ok "every sitemap URL returns 200 directly (no redirects)"
 
-head_ "P0-4  www resolves and redirects to the apex"
-if [ -n "$(dig +short www.core-asset-sol.com)" ]; then
-  wc=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 20 "https://www.core-asset-sol.com/" 2>/dev/null)
-  if [ "$wc" = "301" ]; then ok "www returns 301 to the apex"; else bad "www resolves but returns $wc (expected 301)"; fi
-else
+head_ "P0-4  www resolves, 301s to the apex, preserves the path, and lands on a 200"
+if [ -z "$(dig +short www.core-asset-sol.com)" ]; then
   bad "www.core-asset-sol.com has NO DNS record - it does not resolve at all"
+else
+  ok "www.core-asset-sol.com resolves"
+  # A 301 alone proves nothing. Check the target is right and actually loads - a rule
+  # that emits a literal ':splat' placeholder returns a perfectly valid 301 to a 404.
+  for p in / /contact /services/itad; do
+    wcode=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 20 "https://www.core-asset-sol.com$p")
+    wloc=$(curl -sS -o /dev/null -w '%{redirect_url}' --max-time 20 "https://www.core-asset-sol.com$p")
+    want="https://core-asset-sol.com$p"
+    if [ "$wcode" != "301" ]; then
+      bad "www$p returned $wcode (expected 301)"
+    elif [[ "$wloc" == *":splat"* || "$wloc" == *":path"* || "$wloc" == *"*"* ]]; then
+      bad "www$p 301s to an UNINTERPOLATED PLACEHOLDER: $wloc"
+    elif [ "$wloc" != "$want" ]; then
+      bad "www$p 301s to $wloc (expected $want) - path not preserved"
+    else
+      final=$(curl -sSL -o /dev/null -w '%{http_code}' --max-time 20 "https://www.core-asset-sol.com$p")
+      if [ "$final" = "200" ]; then ok "www$p -> 301 -> $wloc -> 200"
+      else bad "www$p 301s correctly but the destination returns $final"; fi
+    fi
+  done
+  hcode=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 20 "http://www.core-asset-sol.com/")
+  if [ "$hcode" = "301" ]; then ok "http://www 301s"; else bad "http://www returns $hcode (expected 301)"; fi
 fi
 
 head_ "P1-1  Query-string URLs are 200+canonical or 301, never 302"
-qc=$(code "$SITE/services?ref=audit")
-case "$qc" in
-  200) ok "query-string URL returns 200 (relies on self-canonical - correct)" ;;
-  301) ok "query-string URL returns 301 (acceptable)" ;;
-  302) bad "query-string URL returns 302 temporary - should be 200+canonical or 301" ;;
-  *)   bad "query-string URL returns $qc" ;;
-esac
+# Test a spread of parameter names. The original audit generalised from a single
+# ?ref= probe; in fact only specific parameter names trigger a redirect, so name them.
+qbad=0
+for q in "ref=x" "utm_source=g" "utm_source=g&utm_medium=cpc" "gclid=abc" "fbclid=xyz" \
+         "msclkid=q" "page=2" "id=1" "a=1&b=2"; do
+  qc=$(code "$SITE/services?$q")
+  case "$qc" in
+    200|301) ;;
+    302) bad "?$q returns 302 temporary - should be 200+canonical or 301"; qbad=1 ;;
+    *)   bad "?$q returns $qc"; qbad=1 ;;
+  esac
+done
+[ "$qbad" -eq 0 ] && ok "all tested query-string forms return 200 or 301 (no 302s)"
 
 head_ "P1-2  The 404 template does not return HTTP 200"
 c=$(code "$SITE/404")

@@ -2,9 +2,19 @@
 # Place at the root of the build output directory.
 
 # Navigation fragments must never be indexed as standalone pages.
-# robots.txt Disallow prevents crawling but cannot remove a URL that is already
-# indexed. X-Robots-Tag can. Deploy this first, let Google recrawl and drop the
-# URLs, then the robots.txt Disallow keeps them out.
+#
+# IMPORTANT: do NOT also add "Disallow: /partials/" to robots.txt while the header
+# and footer are still injected client-side. Disallow stops Googlebot fetching the
+# URL, which means (a) it never sees this noindex header, so the header is inert,
+# and (b) its renderer cannot fetch the partials, so it sees no site navigation at
+# all - the served HTML has zero <nav> and zero <footer> elements.
+#
+# noindex WITHOUT a robots.txt block is the correct interim state: Googlebot can
+# crawl the fragments (so rendering still works) and sees the directive (so the
+# fragment URLs drop out of the index).
+#
+# Once build/inline-partials.mjs is live, stop publishing partials/ altogether.
+# The URLs 404, and this rule becomes unnecessary.
 /partials/*
   X-Robots-Tag: noindex, nofollow
 

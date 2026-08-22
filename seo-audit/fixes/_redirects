@@ -20,17 +20,40 @@
 /schedule-consultation                      /schedule-consultation-form                301
 /resources/sample-certificate-of-media-sanitization.pdf  /resources/Certificate_Media_Sanitization.pdf  301
 
-# --- P0-4: www ---------------------------------------------------------------
-# www.core-asset-sol.com currently has NO DNS record and fails to resolve.
-# This rule cannot work until DNS exists. In Cloudflare DNS add:
-#     Type: CNAME   Name: www   Target: core-asset-sol.com   Proxy: ON
-# then add the redirect as a Cloudflare Redirect Rule (Rules > Redirect Rules),
-# because _redirects only applies to requests already routed to this Pages
-# project and cannot match on hostname:
-#     When:  hostname eq "www.core-asset-sol.com"
-#     Then:  Static/Dynamic redirect to
-#            concat("https://core-asset-sol.com", http.request.uri.path)
-#            Status 301, preserve query string
+# --- P0-4: www  -- DO NOT PUT THIS RULE IN THIS FILE -------------------------
+# Status 2026-08-22: DNS is fixed (www resolves, TLS covers *.core-asset-sol.com)
+# but the redirect is BROKEN. It emits a literal, uninterpolated ":splat":
+#
+#     https://www.core-asset-sol.com/contact
+#       -> 301 -> https://core-asset-sol.com/:splat  -> 404
+#
+# Every www URL, whatever the path, lands on the same 404.
+#
+# Root cause: ":splat" is _redirects syntax. It only interpolates inside a
+# Cloudflare Pages _redirects file. The www rule is running as a Cloudflare
+# Redirect Rule at the edge (no cf-cache-status header, no
+# access-control-allow-origin - not a Pages response), set to Static, and a
+# static target is emitted verbatim.
+#
+# It cannot live in this file either way: Cloudflare Pages does not support
+# domain-level redirects in _redirects, because _redirects cannot match on
+# hostname. Attempting "/*  https://core-asset-sol.com/:splat  301" here would
+# also match apex requests and cause an infinite redirect loop.
+#
+# CORRECT FIX - Cloudflare dashboard > zone > Rules > Redirect Rules:
+#     If:    (http.host eq "www.core-asset-sol.com")
+#     Then:  type = DYNAMIC   (not Static - this is the actual bug)
+#            expression = concat("https://core-asset-sol.com", http.request.uri.path)
+#            status = 301
+#            preserve query string = ON
+#
+# Also: http://www (port 80) currently returns 522. Ensure the rule matches on
+# hostname only with no scheme/ssl condition, and that the www DNS record is
+# proxied (orange cloud), not DNS-only.
+#
+# Verify:
+#     curl -sSI https://www.core-asset-sol.com/contact | grep -iE '^(HTTP|location)'
+#     -> want: 301 and location: https://core-asset-sol.com/contact
 
 # --- NOT recommended ---------------------------------------------------------
 # Do NOT add a catch-all such as:  /*  /  301
