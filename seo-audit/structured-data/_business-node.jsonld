@@ -196,7 +196,22 @@
     "Medical Equipment Disposal"
   ],
 
-  "_comment_certification": "_ADDED_ Certification is valid schema.org and a strong entity/trust signal. It is NOT a Google rich result — no stars or badges appear. Only include it if you genuinely hold the certification, and fill in the real certificate number. Delete the whole property if R2v3 certification is pending.",
+  "_comment_certification": [
+    "*** DELETE THIS ENTIRE PROPERTY FOR NOW. ***",
+    "You confirmed on 2026-08-22 that certifications are still pending. Do not publish a",
+    "hasCertification claim until R2v3 is actually issued and you have the certificate number.",
+    "",
+    "Enterprise procurement verifies this. Your two main Cincinnati competitors both lead with",
+    "R2v3 and NAID AAA, so a buyer comparing vendors will check yours specifically. A claim that",
+    "does not hold up costs the deal and the relationship.",
+    "",
+    "What you CAN say meanwhile: 'R2v3 certification in progress'. And keep claiming NIST",
+    "800-88r2 alignment — that is a standard you follow, not an accreditation you hold, so it is",
+    "accurate today. See ../GO-TO-MARKET-PRIORITIES.md section 2.",
+    "",
+    "Restore this block the day certification is issued. It is a strong entity and trust signal,",
+    "though not a Google rich result — no badge renders in the SERP."
+  ],
   "hasCertification": {
     "@type": "Certification",
     "name": "R2v3 Responsible Recycling Certification",
