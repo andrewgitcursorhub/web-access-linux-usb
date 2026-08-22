@@ -1,0 +1,290 @@
+{
+  "_README": [
+    "TEMPLATE 2 of 4 — INDUSTRIES SERVED OVERVIEW  (/industries-served)",
+    "",
+    "WHAT THIS FIXES vs your live markup",
+    "  1. Your list items are typed WebPage; the services overview types its items Service.",
+    "     Two hub pages, two different models. Industry pages describe a SERVICE delivered to a",
+    "     specific audience, so Service is the correct type on both — with audience narrowing it.",
+    "  2. Item 8 is labelled 'Telecom & Aerospace' but points at",
+    "     /industries-served/test-measurement-equipment. Label and destination disagree. Pick one.",
+    "  3. No business entity on the page, so no local signals.",
+    "  4. No image declared. The page has a hero at industry-overview-hero.png that nothing",
+    "     references, and og:image points at the logo.",
+    "  5. Item entries carry no description or image.",
+    "",
+    "THE KEY IDEA — this is what makes the industry pages pull their weight:",
+    "Each entry declares BOTH the audience it serves AND the compliance regime that audience",
+    "carries. That is the structured-data expression of 'we do healthcare recycling with HIPAA",
+    "and HITECH focus that we would not apply elsewhere'. Google reads audience + about, and",
+    "the differentiation becomes machine-readable instead of only being prose.",
+    "",
+    "RICH RESULT ELIGIBILITY: Breadcrumbs.",
+    "Strip all _README and _comment keys before shipping."
+  ],
+
+  "@context": "https://schema.org",
+  "@graph": [
+
+    {
+      "_comment": "SHARED BUSINESS NODE — ship the COMPLETE version from _business-node.jsonld. Abbreviated here for readability.",
+      "@type": "RecyclingCenter",
+      "@id": "https://core-asset-sol.com/#organization",
+      "name": "Core Asset Solutions",
+      "url": "https://core-asset-sol.com/",
+      "email": "info@core-asset-sol.com",
+      "telephone": "+1-513-433-7818",
+      "priceRange": "$$",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://core-asset-sol.com/#logo",
+        "url": "https://core-asset-sol.com/assets/logo_website_final_cropped2.png",
+        "width": 402, "height": 372, "caption": "Core Asset Solutions"
+      },
+      "image": { "@id": "https://core-asset-sol.com/#logo" },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "457 S Cooper Ave.",
+        "addressLocality": "Lockland",
+        "addressRegion": "OH",
+        "postalCode": "45215",
+        "addressCountry": "US"
+      },
+      "geo": { "@type": "GeoCoordinates", "latitude": "39.2241279", "longitude": "-84.4604809" },
+      "areaServed": [
+        { "@type": "GeoCircle", "@id": "https://core-asset-sol.com/#pickup-radius",
+          "geoMidpoint": { "@type": "GeoCoordinates", "latitude": "39.2241279", "longitude": "-84.4604809" },
+          "geoRadius": "193121" },
+        { "@type": "State", "name": "Ohio" },
+        { "@type": "State", "name": "Indiana" },
+        { "@type": "State", "name": "Kentucky" },
+        { "@type": "City", "name": "Cincinnati", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Dayton", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Columbus", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Indianapolis", "containedInPlace": { "@type": "State", "name": "Indiana" } },
+        { "@type": "City", "name": "Louisville", "containedInPlace": { "@type": "State", "name": "Kentucky" } }
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/company/coreassetsolutions/",
+        "https://www.facebook.com/CoreAssetSolutions/",
+        "https://www.instagram.com/coreassetsolutions/",
+        "https://x.com/coreassetsol"
+      ]
+    },
+
+    {
+      "@type": "WebSite",
+      "@id": "https://core-asset-sol.com/#website",
+      "url": "https://core-asset-sol.com/",
+      "name": "Core Asset Solutions",
+      "inLanguage": "en-US",
+      "publisher": { "@id": "https://core-asset-sol.com/#organization" }
+    },
+
+    {
+      "_comment_image": "Current file is 912x632, 610 KB PNG. Re-export at 1200x630 WebP and update width/height. Point og:image here too — it currently points at the logo.",
+      "@type": "ImageObject",
+      "@id": "https://core-asset-sol.com/industries-served#primaryimage",
+      "url": "https://core-asset-sol.com/assets/industries-services-hero/industry-overview-hero.png",
+      "contentUrl": "https://core-asset-sol.com/assets/industries-services-hero/industry-overview-hero.png",
+      "width": 912,
+      "height": 632,
+      "caption": "Industry-specific electronics recycling and ITAD programs from Core Asset Solutions",
+      "representativeOfPage": true
+    },
+
+    {
+      "@type": "CollectionPage",
+      "@id": "https://core-asset-sol.com/industries-served#webpage",
+      "url": "https://core-asset-sol.com/industries-served",
+      "name": "Electronics Recycling by Industry",
+      "description": "REPLACE_WITH_YOUR_UPDATED_META_DESCRIPTION — must match the page's <meta name=\"description\"> exactly. Your live one is 235 characters; trim to under 160.",
+      "isPartOf": { "@id": "https://core-asset-sol.com/#website" },
+      "about": { "@id": "https://core-asset-sol.com/#organization" },
+      "provider": { "@id": "https://core-asset-sol.com/#organization" },
+      "breadcrumb": { "@id": "https://core-asset-sol.com/industries-served#breadcrumb" },
+      "primaryImageOfPage": { "@id": "https://core-asset-sol.com/industries-served#primaryimage" },
+      "mainEntity": { "@id": "https://core-asset-sol.com/industries-served#industry-list" },
+      "inLanguage": "en-US"
+    },
+
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://core-asset-sol.com/industries-served#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://core-asset-sol.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Industries Served", "item": "https://core-asset-sol.com/industries-served" }
+      ]
+    },
+
+    {
+      "_comment_list": [
+        "Each item is a Service narrowed by audience, not a bare WebPage. audienceType names the",
+        "sector; the compliance regime rides along in additionalProperty so the sector-specific",
+        "obligation is machine-readable at the hub level, not only on the detail page.",
+        "",
+        "Keep numberOfItems equal to itemListElement length."
+      ],
+      "@type": "ItemList",
+      "@id": "https://core-asset-sol.com/industries-served#industry-list",
+      "name": "Industries Served",
+      "numberOfItems": 8,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Corporate IT & Data Center",
+          "url": "https://core-asset-sol.com/industries-served/it-data-center",
+          "item": {
+            "@type": "Service",
+            "@id": "https://core-asset-sol.com/industries-served/it-data-center#service",
+            "name": "Corporate IT & Data Center ITAD",
+            "url": "https://core-asset-sol.com/industries-served/it-data-center",
+            "serviceType": "IT Asset Disposition for Corporate IT and Data Center Operations",
+            "description": "REPLACE_WITH_ONE_SENTENCE_SUMMARY",
+            "provider": { "@id": "https://core-asset-sol.com/#organization" },
+            "audience": { "@type": "BusinessAudience", "audienceType": "Corporate IT departments and data center operators" },
+            "additionalProperty": [
+              { "@type": "PropertyValue", "name": "Primary compliance focus", "value": "SOC 2, ISO 27001, NIST 800-88r2" }
+            ]
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Hospitals & Healthcare",
+          "url": "https://core-asset-sol.com/industries-served/healthcare",
+          "item": {
+            "@type": "Service",
+            "@id": "https://core-asset-sol.com/industries-served/healthcare#service",
+            "name": "Healthcare Electronics Recycling & ITAD",
+            "url": "https://core-asset-sol.com/industries-served/healthcare",
+            "serviceType": "Electronics Recycling and IT Asset Disposition for Healthcare Organizations",
+            "description": "Healthcare electronics recycling and PHI-bearing media sanitization for hospitals, health systems, clinics and laboratories.",
+            "image": "https://core-asset-sol.com/assets/industries-services-hero/industries-healthcare-hero.png",
+            "provider": { "@id": "https://core-asset-sol.com/#organization" },
+            "audience": { "@type": "MedicalAudience", "audienceType": "Hospitals, health systems, clinics, laboratories and medical organizations" },
+            "additionalProperty": [
+              { "@type": "PropertyValue", "name": "Primary compliance focus", "value": "HIPAA Security Rule, HITECH Act, NIST 800-88r2" }
+            ]
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Government Agencies",
+          "url": "https://core-asset-sol.com/industries-served/government",
+          "item": {
+            "@type": "Service",
+            "@id": "https://core-asset-sol.com/industries-served/government#service",
+            "name": "Government Electronics Recycling & ITAD",
+            "url": "https://core-asset-sol.com/industries-served/government",
+            "serviceType": "IT Asset Disposition for Government Agencies",
+            "description": "REPLACE_WITH_ONE_SENTENCE_SUMMARY",
+            "provider": { "@id": "https://core-asset-sol.com/#organization" },
+            "audience": { "@type": "BusinessAudience", "audienceType": "Federal, state, county and municipal government agencies" },
+            "additionalProperty": [
+              { "@type": "PropertyValue", "name": "Primary compliance focus", "value": "FISMA, NIST 800-171, NIST 800-88r2" }
+            ]
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Schools & Education",
+          "url": "https://core-asset-sol.com/industries-served/education",
+          "item": {
+            "@type": "Service",
+            "@id": "https://core-asset-sol.com/industries-served/education#service",
+            "name": "Education Electronics Recycling & ITAD",
+            "url": "https://core-asset-sol.com/industries-served/education",
+            "serviceType": "IT Asset Disposition for Schools, Districts and Universities",
+            "description": "REPLACE_WITH_ONE_SENTENCE_SUMMARY",
+            "provider": { "@id": "https://core-asset-sol.com/#organization" },
+            "audience": { "@type": "EducationalAudience", "audienceType": "K-12 school districts, colleges and universities" },
+            "additionalProperty": [
+              { "@type": "PropertyValue", "name": "Primary compliance focus", "value": "FERPA, COPPA, NIST 800-88r2" }
+            ]
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Banking & Financial Services",
+          "url": "https://core-asset-sol.com/industries-served/financial-services",
+          "item": {
+            "@type": "Service",
+            "@id": "https://core-asset-sol.com/industries-served/financial-services#service",
+            "name": "Financial Services Electronics Recycling & ITAD",
+            "url": "https://core-asset-sol.com/industries-served/financial-services",
+            "serviceType": "IT Asset Disposition for Banking and Financial Services",
+            "description": "REPLACE_WITH_ONE_SENTENCE_SUMMARY",
+            "provider": { "@id": "https://core-asset-sol.com/#organization" },
+            "audience": { "@type": "BusinessAudience", "audienceType": "Banks, credit unions, insurers and financial services firms" },
+            "additionalProperty": [
+              { "@type": "PropertyValue", "name": "Primary compliance focus", "value": "GLBA, PCI DSS, SOX, NIST 800-88r2" }
+            ]
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "name": "Media & Entertainment",
+          "url": "https://core-asset-sol.com/industries-served/media-entertainment",
+          "item": {
+            "@type": "Service",
+            "@id": "https://core-asset-sol.com/industries-served/media-entertainment#service",
+            "name": "Media & Entertainment Electronics Recycling & ITAD",
+            "url": "https://core-asset-sol.com/industries-served/media-entertainment",
+            "serviceType": "IT Asset Disposition for Media and Entertainment",
+            "description": "REPLACE_WITH_ONE_SENTENCE_SUMMARY",
+            "provider": { "@id": "https://core-asset-sol.com/#organization" },
+            "audience": { "@type": "BusinessAudience", "audienceType": "Broadcasters, production studios and post-production facilities" },
+            "additionalProperty": [
+              { "@type": "PropertyValue", "name": "Primary compliance focus", "value": "MPA content security, NIST 800-88r2" }
+            ]
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "name": "Industrial Facilities",
+          "url": "https://core-asset-sol.com/industries-served/industrial-equipment",
+          "item": {
+            "@type": "Service",
+            "@id": "https://core-asset-sol.com/industries-served/industrial-equipment#service",
+            "name": "Industrial Electronics Recycling & Equipment Disposition",
+            "url": "https://core-asset-sol.com/industries-served/industrial-equipment",
+            "serviceType": "Industrial Equipment Disposition and Electronics Recycling",
+            "description": "REPLACE_WITH_ONE_SENTENCE_SUMMARY",
+            "provider": { "@id": "https://core-asset-sol.com/#organization" },
+            "audience": { "@type": "BusinessAudience", "audienceType": "Manufacturers, industrial plants and process facilities" },
+            "additionalProperty": [
+              { "@type": "PropertyValue", "name": "Primary compliance focus", "value": "ITAR where applicable, EPA hazardous waste handling, R2v3" }
+            ]
+          }
+        },
+        {
+          "_comment_mismatch": "Your live label here is 'Telecom & Aerospace' but the URL is /test-measurement-equipment, and the page is about test and measurement equipment. Label and page must agree — either rename the label to match the page (done here) or build a separate telecom/aerospace page.",
+          "@type": "ListItem",
+          "position": 8,
+          "name": "Test & Measurement Equipment",
+          "url": "https://core-asset-sol.com/industries-served/test-measurement-equipment",
+          "item": {
+            "@type": "Service",
+            "@id": "https://core-asset-sol.com/industries-served/test-measurement-equipment#service",
+            "name": "Test & Measurement Equipment Disposition",
+            "url": "https://core-asset-sol.com/industries-served/test-measurement-equipment",
+            "serviceType": "Test and Measurement Equipment Disposition and Remarketing",
+            "description": "REPLACE_WITH_ONE_SENTENCE_SUMMARY",
+            "provider": { "@id": "https://core-asset-sol.com/#organization" },
+            "audience": { "@type": "BusinessAudience", "audienceType": "Laboratories, telecom operators, aerospace and electronics engineering organizations" },
+            "additionalProperty": [
+              { "@type": "PropertyValue", "name": "Primary compliance focus", "value": "ITAR and EAR where applicable, calibration record handling, R2v3" }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

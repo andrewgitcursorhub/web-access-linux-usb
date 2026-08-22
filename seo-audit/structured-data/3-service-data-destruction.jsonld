@@ -1,0 +1,318 @@
+{
+  "_README": [
+    "TEMPLATE 3 of 4 — REPEATABLE SERVICE PAGE  (/services/data-destruction)",
+    "",
+    "This is the pattern for all 7 service pages. To adapt it, change only: the Service node,",
+    "the ImageObject, the WebPage node, the breadcrumb leaf, and the FAQ. Everything else is",
+    "byte-identical across pages.",
+    "",
+    "WHAT THIS FIXES vs your live markup",
+    "  1. provider was a 4-property stub pointing at an @id defined only on the homepage.",
+    "     Google does not resolve @id across pages, so this page had NO business entity — no",
+    "     address, no geo, no hours — while trying to rank for 'data destruction Cincinnati'.",
+    "  2. areaServed was a flat array of plain strings ('Cincinnati, Ohio'). Strings are legal",
+    "     but create no place entities. Typed City/State/AdministrativeArea nodes plus a",
+    "     GeoCircle do.",
+    "  3. No WebPage node at all. Your healthcare page has one; this one does not.",
+    "  4. No image. The page has a hero at data-destruction-service-hero.png that nothing",
+    "     declared, and og:image points at the logo.",
+    "  5. No serviceOutput, no compliance properties, no offers, no availableChannel.",
+    "",
+    "RICH RESULT ELIGIBILITY",
+    "  Breadcrumbs — live today.",
+    "  Video — once you add the video you mentioned. The VideoObject node below is ready; fill",
+    "    it in and delete it until then. This is the single biggest rich-result win available",
+    "    on this page.",
+    "  Service itself is NOT a rich result type. It is still worth marking up: it is what makes",
+    "    the page machine-readable for AI surfaces and entity comprehension.",
+    "",
+    "Strip all _README and _comment keys before shipping."
+  ],
+
+  "@context": "https://schema.org",
+  "@graph": [
+
+    {
+      "_comment": "SHARED BUSINESS NODE — ship the COMPLETE version from _business-node.jsonld. Abbreviated here for readability. THIS is the fix for the provider stub: the full node lives on the page, so the reference below resolves locally.",
+      "@type": "RecyclingCenter",
+      "@id": "https://core-asset-sol.com/#organization",
+      "name": "Core Asset Solutions",
+      "url": "https://core-asset-sol.com/",
+      "email": "info@core-asset-sol.com",
+      "telephone": "+1-513-433-7818",
+      "priceRange": "$$",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://core-asset-sol.com/#logo",
+        "url": "https://core-asset-sol.com/assets/logo_website_final_cropped2.png",
+        "width": 402, "height": 372, "caption": "Core Asset Solutions"
+      },
+      "image": { "@id": "https://core-asset-sol.com/#logo" },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "457 S Cooper Ave.",
+        "addressLocality": "Lockland",
+        "addressRegion": "OH",
+        "postalCode": "45215",
+        "addressCountry": "US"
+      },
+      "geo": { "@type": "GeoCoordinates", "latitude": "39.2241279", "longitude": "-84.4604809" },
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "08:00", "closes": "18:00"
+      }],
+      "areaServed": [
+        { "@type": "GeoCircle", "@id": "https://core-asset-sol.com/#pickup-radius",
+          "geoMidpoint": { "@type": "GeoCoordinates", "latitude": "39.2241279", "longitude": "-84.4604809" },
+          "geoRadius": "193121" },
+        { "@type": "State", "name": "Ohio" },
+        { "@type": "State", "name": "Indiana" },
+        { "@type": "State", "name": "Kentucky" },
+        { "@type": "City", "name": "Cincinnati", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Dayton", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Columbus", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Indianapolis", "containedInPlace": { "@type": "State", "name": "Indiana" } },
+        { "@type": "City", "name": "Louisville", "containedInPlace": { "@type": "State", "name": "Kentucky" } }
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/company/coreassetsolutions/",
+        "https://www.facebook.com/CoreAssetSolutions/",
+        "https://www.instagram.com/coreassetsolutions/",
+        "https://x.com/coreassetsol"
+      ]
+    },
+
+    {
+      "@type": "WebSite",
+      "@id": "https://core-asset-sol.com/#website",
+      "url": "https://core-asset-sol.com/",
+      "name": "Core Asset Solutions",
+      "inLanguage": "en-US",
+      "publisher": { "@id": "https://core-asset-sol.com/#organization" }
+    },
+
+    {
+      "_comment_image": [
+        "THE PER-PAGE IMAGE PATTERN you asked about. Three things have to agree:",
+        "  1. This ImageObject, referenced by WebPage.primaryImageOfPage and Service.image",
+        "  2. The <meta property=\"og:image\"> tag on the page",
+        "  3. The actual <img> in the page body",
+        "Right now og:image on every page points at the logo, and no page except the homepage",
+        "declares image in structured data at all.",
+        "",
+        "Current file: 811x541, 481 KB PNG. Re-export at 1200x630 WebP and update width/height.",
+        "representativeOfPage tells Google this is the page's main image, not decoration."
+      ],
+      "@type": "ImageObject",
+      "@id": "https://core-asset-sol.com/services/data-destruction#primaryimage",
+      "url": "https://core-asset-sol.com/assets/industries-services-hero/data-destruction-service-hero.png",
+      "contentUrl": "https://core-asset-sol.com/assets/industries-services-hero/data-destruction-service-hero.png",
+      "width": 811,
+      "height": 541,
+      "caption": "NIST 800-88r2 data destruction and media sanitization at the Core Asset Solutions facility",
+      "representativeOfPage": true
+    },
+
+    {
+      "@type": "WebPage",
+      "@id": "https://core-asset-sol.com/services/data-destruction#webpage",
+      "url": "https://core-asset-sol.com/services/data-destruction",
+      "name": "Data Destruction & Sanitization Services",
+      "description": "REPLACE_WITH_YOUR_UPDATED_META_DESCRIPTION — must match the page's meta description exactly.",
+      "isPartOf": { "@id": "https://core-asset-sol.com/#website" },
+      "about": { "@id": "https://core-asset-sol.com/services/data-destruction#service" },
+      "mainEntity": { "@id": "https://core-asset-sol.com/services/data-destruction#service" },
+      "breadcrumb": { "@id": "https://core-asset-sol.com/services/data-destruction#breadcrumb" },
+      "primaryImageOfPage": { "@id": "https://core-asset-sol.com/services/data-destruction#primaryimage" },
+      "provider": { "@id": "https://core-asset-sol.com/#organization" },
+      "inLanguage": "en-US",
+      "lastReviewed": "REPLACE_WITH_ISO_DATE"
+    },
+
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://core-asset-sol.com/services/data-destruction#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://core-asset-sol.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://core-asset-sol.com/services" },
+        { "@type": "ListItem", "position": 3, "name": "Data Destruction", "item": "https://core-asset-sol.com/services/data-destruction" }
+      ]
+    },
+
+    {
+      "@type": "Service",
+      "@id": "https://core-asset-sol.com/services/data-destruction#service",
+      "name": "Data Destruction & Media Sanitization",
+      "serviceType": "Data Destruction and Media Sanitization",
+      "url": "https://core-asset-sol.com/services/data-destruction",
+      "description": "NIST 800-88r2 media sanitization using Clear, Purge and Destroy methods, with serialized chain of custody and certificates of destruction, for organizations across Ohio, Indiana and Kentucky.",
+      "image": { "@id": "https://core-asset-sol.com/services/data-destruction#primaryimage" },
+      "provider": { "@id": "https://core-asset-sol.com/#organization" },
+      "mainEntityOfPage": { "@id": "https://core-asset-sol.com/services/data-destruction#webpage" },
+
+      "_comment_areaServed": "Typed places, not the plain strings your live markup uses. Same set as the business node, so the service footprint and the company footprint agree.",
+      "areaServed": [
+        { "@id": "https://core-asset-sol.com/#pickup-radius" },
+        { "@type": "State", "name": "Ohio" },
+        { "@type": "State", "name": "Indiana" },
+        { "@type": "State", "name": "Kentucky" },
+        { "@type": "City", "name": "Cincinnati", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Dayton", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Columbus", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Indianapolis", "containedInPlace": { "@type": "State", "name": "Indiana" } },
+        { "@type": "City", "name": "Louisville", "containedInPlace": { "@type": "State", "name": "Kentucky" } }
+      ],
+
+      "_comment_mobility": "providerMobility 'dynamic' is the schema.org way of saying the provider travels to the customer. This is the single most direct structured-data expression of 'we come to your facility'. Use it on every service you perform on site.",
+      "providerMobility": "dynamic",
+
+      "_comment_audience": "Broad here. The industry pages narrow it. See template 4.",
+      "audience": {
+        "@type": "BusinessAudience",
+        "audienceType": "Enterprise IT departments, compliance officers and information security teams"
+      },
+
+      "_comment_compliance": [
+        "COMPLIANCE AS STRUCTURED DATA — two complementary mechanisms:",
+        "",
+        "  additionalProperty  → flat, factual name/value pairs. Easy for any parser to read.",
+        "  about → DefinedTerm  → real entities with authoritative URLs. This is the stronger",
+        "                         signal, because it links your service to the actual published",
+        "                         standard rather than to a keyword string.",
+        "",
+        "Use both. Only claim frameworks you genuinely operate against."
+      ],
+      "additionalProperty": [
+        { "@type": "PropertyValue", "name": "Sanitization standard", "value": "NIST SP 800-88 Rev. 2" },
+        { "@type": "PropertyValue", "name": "Sanitization methods", "value": "Clear, Purge, Destroy" },
+        { "@type": "PropertyValue", "name": "Chain of custody", "value": "Serialized, item-level, from collection through final disposition" },
+        { "@type": "PropertyValue", "name": "Documentation provided", "value": "Certificate of Destruction and Certificate of Media Sanitization" },
+        { "@type": "PropertyValue", "name": "Supported compliance frameworks", "value": "HIPAA, SOC 2, PCI DSS, GDPR, CCPA, FISMA, NIST 800-171" },
+        { "@type": "PropertyValue", "name": "On-site service available", "value": "Yes — sanitization and destruction can be performed at the client facility" }
+      ],
+
+      "about": [
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://core-asset-sol.com/#term-nist-800-88",
+          "name": "NIST SP 800-88 Rev. 2",
+          "description": "National Institute of Standards and Technology Guidelines for Media Sanitization, defining the Clear, Purge and Destroy sanitization categories.",
+          "url": "https://csrc.nist.gov/pubs/sp/800/88/r2/ipd",
+          "inDefinedTermSet": {
+            "@type": "DefinedTermSet",
+            "name": "NIST Special Publications",
+            "url": "https://csrc.nist.gov/publications/sp"
+          }
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://core-asset-sol.com/#term-r2v3",
+          "name": "R2v3 Responsible Recycling Standard",
+          "description": "Certification standard for responsible electronics reuse and recycling, including data security and downstream due diligence requirements.",
+          "url": "https://sustainableelectronics.org/r2/",
+          "inDefinedTermSet": {
+            "@type": "DefinedTermSet",
+            "name": "SERI Standards",
+            "url": "https://sustainableelectronics.org/"
+          }
+        }
+      ],
+
+      "_comment_serviceOutput": "What the client actually receives. This is the deliverable that closes an audit, and it is worth being explicit about.",
+      "serviceOutput": {
+        "@type": "Thing",
+        "name": "Serialized Certificate of Destruction",
+        "description": "Audit-ready documentation listing every device by serial number, the sanitization method applied, the date performed, and the final disposition outcome."
+      },
+
+      "_comment_channel": "How a client engages the service. serviceLocation points at the facility; the form URL is the digital entry point.",
+      "availableChannel": {
+        "@type": "ServiceChannel",
+        "name": "Schedule a pickup or on-site service",
+        "serviceUrl": "https://core-asset-sol.com/schedule-pickup-form",
+        "servicePhone": "+1-513-433-7818",
+        "serviceLocation": { "@id": "https://core-asset-sol.com/#organization" }
+      },
+
+      "_comment_offers": [
+        "Optional. Include ONLY if you publish real pricing. Do not invent a price.",
+        "If pricing is quote-based, keep the Offer but omit price and use a priceSpecification-free",
+        "form, or delete the whole offers property. A fabricated price is a guidelines problem."
+      ],
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "url": "https://core-asset-sol.com/schedule-consultation-form",
+        "eligibleRegion": { "@id": "https://core-asset-sol.com/#pickup-radius" },
+        "seller": { "@id": "https://core-asset-sol.com/#organization" }
+      },
+
+      "_comment_catalog": "The sub-services within data destruction. Gives Google the specific method names as entities.",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Data Destruction Methods",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "On-site hard drive shredding", "description": "Physical destruction performed at the client facility with witnessed verification." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Cryptographic erase (NIST Purge)", "description": "Media-specific sanitization for self-encrypting drives and solid state media." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Overwrite and block erase (NIST Clear)", "description": "Logical sanitization for assets remaining within organizational control." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Degaussing and physical disintegration (NIST Destroy)", "description": "For media where Purge cannot be verified or regulation mandates physical destruction." } }
+        ]
+      }
+    },
+
+    {
+      "_comment_video": [
+        "ADD THIS when the video you mentioned goes live. Delete the node entirely until then —",
+        "marking up a video that is not on the page is a guidelines violation.",
+        "",
+        "This is the highest-value rich result available on this page. Video results carry a",
+        "thumbnail in the SERP and open up the Video tab, and for a service where buyers want",
+        "proof of process, a shredding demonstration is exactly the right asset.",
+        "",
+        "Required: name, description, thumbnailUrl, uploadDate.",
+        "The video must be visibly embedded and playable on this page.",
+        "duration is ISO 8601 — PT2M30S is two minutes thirty seconds."
+      ],
+      "@type": "VideoObject",
+      "@id": "https://core-asset-sol.com/services/data-destruction#video",
+      "name": "REPLACE — e.g. On-Site Hard Drive Shredding and NIST 800-88 Verification",
+      "description": "REPLACE_WITH_DESCRIPTION_OF_WHAT_THE_VIDEO_SHOWS",
+      "thumbnailUrl": ["https://core-asset-sol.com/REPLACE_WITH_THUMBNAIL_16x9.jpg"],
+      "uploadDate": "REPLACE_WITH_ISO_DATETIME_WITH_OFFSET",
+      "duration": "REPLACE_WITH_ISO_8601_DURATION",
+      "contentUrl": "https://core-asset-sol.com/REPLACE_WITH_VIDEO_FILE.mp4",
+      "embedUrl": "REPLACE_OR_DELETE_IF_SELF_HOSTED",
+      "publisher": { "@id": "https://core-asset-sol.com/#organization" },
+      "about": { "@id": "https://core-asset-sol.com/services/data-destruction#service" },
+      "transcript": "REPLACE_WITH_FULL_TRANSCRIPT"
+    },
+
+    {
+      "_comment_faq": [
+        "KEEP your existing 10 questions. Google removed the FAQ rich result for all sites on",
+        "7 May 2026, so this earns no SERP enhancement — but FAQPage is still valid schema,",
+        "Google still parses it for page comprehension, other engines still use it, and your Q&A",
+        "is genuinely good content.",
+        "",
+        "One thing that does still matter: make sure the Q&A text is present in the rendered HTML,",
+        "not hidden behind a JavaScript-only accordion."
+      ],
+      "@type": "FAQPage",
+      "@id": "https://core-asset-sol.com/services/data-destruction#faq",
+      "url": "https://core-asset-sol.com/services/data-destruction",
+      "isPartOf": { "@id": "https://core-asset-sol.com/services/data-destruction#webpage" },
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the difference between NIST 800-88 Clear, Purge, and Destroy?",
+          "acceptedAnswer": { "@type": "Answer", "text": "KEEP_YOUR_EXISTING_ANSWER_TEXT" }
+        },
+        {
+          "_comment": "...your remaining 9 questions unchanged..."
+        }
+      ]
+    }
+  ]
+}
