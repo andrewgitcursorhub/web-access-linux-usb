@@ -159,10 +159,68 @@ for s in linkedin.com/company/coreassetsolutions facebook.com/CoreAssetSolutions
   if grep -q "$s" <<< "$HOME"; then ok "sameAs includes $s"; else bad "sameAs is missing $s"; fi
 done
 
-head_ "P2-3  NAP is consistent between the homepage and the contact page"
-a1=$(grep -oP '(?<="streetAddress": ")[^"]+' <<< "$HOME" | head -1)
-a2=$(body "$SITE/contact" | grep -oP '(?<="streetAddress": ")[^"]+' | head -1)
-if [ "$a1" = "$a2" ]; then ok "streetAddress matches: $a1"; else bad "streetAddress differs - home='$a1' contact='$a2'"; fi
+head_ "P2-3  NAP is consistent across pages"
+# Checks every address field, not just streetAddress. An earlier version compared
+# streetAddress alone and reported PASS while addressLocality said "Lockland" on the
+# homepage and "Cincinnati" on /contact.
+CONTACT=$(body "$SITE/contact")
+napbad=0
+for fld in streetAddress addressLocality addressRegion postalCode telephone; do
+  v1=$(grep -oP "(?<=\"$fld\": \")[^\"]+" <<< "$HOME"    | head -1)
+  v2=$(grep -oP "(?<=\"$fld\": \")[^\"]+" <<< "$CONTACT" | head -1)
+  if [ -z "$v1" ] && [ -z "$v2" ]; then continue; fi
+  if [ "$v1" = "$v2" ]; then ok "$fld matches: $v1"
+  else bad "$fld DIFFERS - home='${v1:-<none>}' contact='${v2:-<none>}'"; napbad=1; fi
+done
+# The schema address must also appear in the page's visible text, byte-identical.
+street=$(grep -oP '(?<="streetAddress": ")[^"]+' <<< "$HOME" | head -1)
+vis=$(sed -e 's/<script[^>]*>.*<\/script>//g' -e 's/<[^>]*>/ /g' <<< "$CONTACT" | tr -s ' ')
+if [ -n "$street" ] && grep -qF "$street" <<< "$vis"; then
+  ok "schema streetAddress also appears verbatim in visible text"
+else
+  bad "schema streetAddress '$street' does NOT appear verbatim in the visible text of /contact"
+fi
+
+head_ "P2-4  Google Business Profile is linked from structured data"
+if grep -q '"hasMap"' <<< "$HOME"; then ok "homepage declares hasMap"
+else bad "no hasMap anywhere - the Google Business Profile is not linked in structured data"; fi
+
+head_ "P2-5  A COMPLETE business entity ships on every page, not just the homepage"
+# "Complete" means an entity that actually carries local signals: a business type WITH
+# an address. A bare provider stub ({"@type":"Organization","name":...,"url":...}) does
+# not count - that is the defect, not the fix.
+full=0; stub=0; none=0
+for u in "${SMU[@]}"; do
+  pb=$(body "$u")
+  if python3 - "$pb" <<'PY' >/dev/null 2>&1
+import sys, re, json
+html = sys.argv[1]
+ENT = {"RecyclingCenter", "LocalBusiness", "Organization"}
+
+def walk(n):
+    """Recurse - the entity is often NESTED (e.g. ContactPage.mainEntity), not top level."""
+    if isinstance(n, list):
+        return any(walk(x) for x in n)
+    if not isinstance(n, dict):
+        return False
+    t = n.get("@type"); t = t if isinstance(t, list) else [t]
+    if ENT & set(t) and "address" in n:
+        return True
+    return any(walk(v) for k, v in n.items() if not k.startswith("@") or k == "@graph")
+
+for blk in re.findall(r'(?is)<script[^>]+ld\+json[^>]*>(.*?)</script>', html):
+    try: d = json.loads(blk)
+    except Exception: continue
+    if walk(d):
+        raise SystemExit(0)
+raise SystemExit(1)
+PY
+  then full=$((full+1))
+  elif grep -qE '"@type"\s*:\s*"(RecyclingCenter|LocalBusiness|Organization)"' <<< "$pb"; then stub=$((stub+1))
+  else none=$((none+1)); fi
+done
+if [ "$full" -eq "${#SMU[@]}" ]; then ok "all ${#SMU[@]} pages carry a complete business entity"
+else bad "only $full of ${#SMU[@]} pages carry a COMPLETE business entity ($stub have a bare stub, $none have nothing) - ship _business-node.jsonld site-wide"; fi
 
 head_ "Canonical integrity across every sitemap URL"
 cbad=0
