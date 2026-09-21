@@ -1,0 +1,243 @@
+{
+  "_README": [
+    "CANONICAL SHARED BUSINESS NODE — the single source of truth for the company entity.",
+    "",
+    "This is the node you were confused about. My earlier service-page-provider.jsonld was",
+    "abbreviated and used stale values ('457 South Cooper Ave.', addressLocality 'Cincinnati').",
+    "This file is built from your LIVE homepage markup as of 2026-08-22 and matches it field",
+    "for field, plus the additions marked ADDED below.",
+    "",
+    "HOW TO USE IT",
+    "This exact node goes in the @graph of EVERY page — all 34, not just the homepage. Google",
+    "evaluates each page independently and does not resolve @id references across pages, so a",
+    "page without this node has no business entity and no local signals. Emit it from the same",
+    "shared include that renders your header and footer, so it is authored once.",
+    "",
+    "Every other node on every page then references it with a bare {'@id': '.../#organization'},",
+    "which resolves locally because the full node is in the same graph.",
+    "",
+    "WHAT MATCHES YOUR LIVE HOMEPAGE EXACTLY",
+    "  @type RecyclingCenter, @id, name, url, email, telephone, contactPoint,",
+    "  address (457 S Cooper Ave. / Lockland / OH / 45215 / US),",
+    "  geo (39.2241279, -84.4604809), knowsAbout (all 19 terms)",
+    "",
+    "WHAT IS ADDED — each marked with _ADDED_ in a comment key nearby",
+    "  logo as ImageObject with real dimensions (was a bare URL string)",
+    "  priceRange, openingHoursSpecification, hasMap  — LocalBusiness recommended properties",
+    "  sameAs expanded from 1 to 4 (all four profiles are live and linked in your footer)",
+    "  areaServed expanded to the real regional footprint + a GeoCircle pickup radius",
+    "  hasOfferCatalog covering all 7 services",
+    "  hasCertification for R2v3",
+    "",
+    "ONE THING DELIBERATELY NOT CHANGED",
+    "  addressLocality stays 'Lockland'. That is your real municipality and NAP must match your",
+    "  Google Business Profile exactly. Do not put 'Cincinnati' here to chase Cincinnati",
+    "  rankings — inconsistent NAP does more damage than the keyword is worth. Cincinnati",
+    "  authority comes from areaServed, page content, and GBP, not from falsifying the address.",
+    "  See README.md §3.",
+    "",
+    "Strip all _README and _comment keys before shipping. They are inert (JSON-LD drops terms",
+    "that are not in the @context) but they are documentation, not markup."
+  ],
+
+  "@context": "https://schema.org",
+  "@type": "RecyclingCenter",
+  "@id": "https://core-asset-sol.com/#organization",
+
+  "name": "Core Asset Solutions",
+  "alternateName": "CAS",
+  "url": "https://core-asset-sol.com/",
+  "email": "info@core-asset-sol.com",
+  "telephone": "+1-513-433-7818",
+
+  "_comment_logo": "_ADDED_ was a bare URL string. ImageObject with real dimensions (402x372) is what Google's Organization logo guidance asks for. Minimum is 112x112, so this passes.",
+  "logo": {
+    "@type": "ImageObject",
+    "@id": "https://core-asset-sol.com/#logo",
+    "url": "https://core-asset-sol.com/assets/logo_website_final_cropped2.png",
+    "contentUrl": "https://core-asset-sol.com/assets/logo_website_final_cropped2.png",
+    "width": 402,
+    "height": 372,
+    "caption": "Core Asset Solutions"
+  },
+  "image": { "@id": "https://core-asset-sol.com/#logo" },
+
+  "_comment_priceRange": "_ADDED_ LocalBusiness recommended property. Must be under 100 characters or Google drops it. '$$' is fine for a B2B service; you can also use a range like '$500-$5000'.",
+  "priceRange": "$$",
+
+  "_comment_slogan": "_ADDED_ optional. Replace or delete.",
+  "slogan": "Secure IT asset disposition and electronics recycling for the Ohio Valley",
+
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "telephone": "+1-513-433-7818",
+      "email": "info@core-asset-sol.com",
+      "availableLanguage": "English",
+      "areaServed": ["US-OH", "US-IN", "US-KY"]
+    },
+    {
+      "_comment": "_ADDED_ a second contact point for sales/quotes helps Google understand intent routing.",
+      "@type": "ContactPoint",
+      "contactType": "sales",
+      "telephone": "+1-513-433-7818",
+      "email": "info@core-asset-sol.com",
+      "availableLanguage": "English",
+      "url": "https://core-asset-sol.com/schedule-consultation-form"
+    }
+  ],
+
+  "_comment_address": "UNCHANGED from your live homepage. This is the physical processing facility. Must match your Google Business Profile character for character.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "457 S Cooper Ave.",
+    "addressLocality": "Lockland",
+    "addressRegion": "OH",
+    "postalCode": "45215",
+    "addressCountry": "US"
+  },
+
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "39.2241279",
+    "longitude": "-84.4604809"
+  },
+
+  "_comment_hasMap": "_ADDED_ paste the share URL from your Google Business Profile listing. Delete this property entirely if you do not have one yet — a broken or guessed URL is worse than omitting it.",
+  "hasMap": "REPLACE_WITH_GOOGLE_BUSINESS_PROFILE_SHARE_URL",
+
+  "_comment_hours": "_ADDED_ taken from the Organization block already on your /contact page, so it is your own data. Keep it identical to GBP. If you are closed Saturdays, remove Saturday — wrong hours are a trust problem.",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      "opens": "08:00",
+      "closes": "18:00"
+    }
+  ],
+
+  "_comment_areaServed": [
+    "_ADDED / EXPANDED_ Your live markup covers Ohio, Cincinnati, Dayton, Southern Ohio and four",
+    "counties. It does not mention Columbus, Indianapolis, Louisville, Indiana or Kentucky at all,",
+    "even though you serve them.",
+    "",
+    "Three layers, deliberately:",
+    "  1. GeoCircle  — the operational truth: how far you actually drive for a pickup.",
+    "  2. City nodes — the specific markets you want to be understood as serving.",
+    "  3. State nodes — broad coverage.",
+    "",
+    "IMPORTANT EXPECTATION SETTING: areaServed helps Google understand your entity. It does NOT",
+    "produce local pack rankings in Columbus, Indianapolis or Louisville. Ranking in those cities",
+    "requires dedicated location pages with real local content, and ideally local signals. Markup",
+    "alone will not do it. See README.md §3."
+  ],
+  "areaServed": [
+    {
+      "@type": "GeoCircle",
+      "@id": "https://core-asset-sol.com/#pickup-radius",
+      "name": "Core Asset Solutions on-site pickup radius",
+      "description": "Regular scheduled on-site electronics pickup radius from the Lockland, Ohio processing facility.",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": "39.2241279",
+        "longitude": "-84.4604809"
+      },
+      "_comment_geoRadius": "geoRadius is in METRES unless you wrap it in a Distance. 193121 m = 120 miles, which reaches Columbus, Indianapolis and Louisville. Set this to your real operating radius — do not inflate it.",
+      "geoRadius": "193121"
+    },
+
+    { "@type": "State", "name": "Ohio", "alternateName": "OH" },
+    { "@type": "State", "name": "Indiana", "alternateName": "IN" },
+    { "@type": "State", "name": "Kentucky", "alternateName": "KY" },
+
+    { "@type": "City", "name": "Cincinnati", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+    { "@type": "City", "name": "Dayton", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+    { "@type": "City", "name": "Columbus", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+    { "@type": "City", "name": "Indianapolis", "containedInPlace": { "@type": "State", "name": "Indiana" } },
+    { "@type": "City", "name": "Louisville", "containedInPlace": { "@type": "State", "name": "Kentucky" } },
+
+    { "@type": "AdministrativeArea", "name": "Hamilton County", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+    { "@type": "AdministrativeArea", "name": "Butler County", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+    { "@type": "AdministrativeArea", "name": "Warren County", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+    { "@type": "AdministrativeArea", "name": "Clermont County", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+    { "@type": "AdministrativeArea", "name": "Montgomery County", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+    { "@type": "AdministrativeArea", "name": "Greene County", "containedInPlace": { "@type": "State", "name": "Ohio" } }
+  ],
+
+  "_comment_sameAs": "_EXPANDED_ from 1 to 4. All four are live (verified HTTP 200) and already linked from your footer. sameAs is how Google reconciles your site with your social entities for knowledge panel consolidation — listing one of four discards most of that signal.",
+  "sameAs": [
+    "https://www.linkedin.com/company/coreassetsolutions/",
+    "https://www.facebook.com/CoreAssetSolutions/",
+    "https://www.instagram.com/coreassetsolutions/",
+    "https://x.com/coreassetsol"
+  ],
+
+  "_comment_knowsAbout": "UNCHANGED — all 19 terms from your live homepage.",
+  "knowsAbout": [
+    "Electronics Recycling",
+    "IT Asset Disposition",
+    "ITAD Services",
+    "Data Destruction",
+    "Hard Drive Shredding",
+    "HIPAA Compliance",
+    "Government Recycling",
+    "Healthcare ITAD",
+    "Corporate E-Waste Management",
+    "Secure Data Wiping",
+    "Asset Remarketing",
+    "Certificate of Destruction",
+    "NIST Data Destruction",
+    "Media Sanitization",
+    "E-Waste Management",
+    "Electronic Waste Disposal",
+    "Computer Recycling",
+    "Server Recycling",
+    "Medical Equipment Disposal"
+  ],
+
+  "_comment_certification": [
+    "*** DELETE THIS ENTIRE PROPERTY FOR NOW. ***",
+    "You confirmed on 2026-08-22 that certifications are still pending. Do not publish a",
+    "hasCertification claim until R2v3 is actually issued and you have the certificate number.",
+    "",
+    "Enterprise procurement verifies this. Your two main Cincinnati competitors both lead with",
+    "R2v3 and NAID AAA, so a buyer comparing vendors will check yours specifically. A claim that",
+    "does not hold up costs the deal and the relationship.",
+    "",
+    "What you CAN say meanwhile: 'R2v3 certification in progress'. And keep claiming NIST",
+    "800-88r2 alignment — that is a standard you follow, not an accreditation you hold, so it is",
+    "accurate today. See ../GO-TO-MARKET-PRIORITIES.md section 2.",
+    "",
+    "Restore this block the day certification is issued. It is a strong entity and trust signal,",
+    "though not a Google rich result — no badge renders in the SERP."
+  ],
+  "hasCertification": {
+    "@type": "Certification",
+    "name": "R2v3 Responsible Recycling Certification",
+    "issuedBy": {
+      "@type": "Organization",
+      "name": "Sustainable Electronics Recycling International",
+      "alternateName": "SERI",
+      "url": "https://sustainableelectronics.org/"
+    },
+    "certificationIdentification": "REPLACE_WITH_REAL_CERTIFICATE_NUMBER_OR_DELETE_THIS_PROPERTY",
+    "certificationStatus": "https://schema.org/CertificationActive"
+  },
+
+  "_comment_offerCatalog": "_ADDED_ ties all 7 service pages to the business entity. Note your live /services ItemList declares numberOfItems: 6 and omits asset-tracking-reporting — there are 7 live service pages. Fixed here and in services-overview.jsonld.",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "@id": "https://core-asset-sol.com/#service-catalog",
+    "name": "IT Asset Disposition and Electronics Recycling Services",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@id": "https://core-asset-sol.com/services/itad#service" } },
+      { "@type": "Offer", "itemOffered": { "@id": "https://core-asset-sol.com/services/electronics-recycling#service" } },
+      { "@type": "Offer", "itemOffered": { "@id": "https://core-asset-sol.com/services/data-destruction#service" } },
+      { "@type": "Offer", "itemOffered": { "@id": "https://core-asset-sol.com/services/hard-drive-destruction#service" } },
+      { "@type": "Offer", "itemOffered": { "@id": "https://core-asset-sol.com/services/decommissioning#service" } },
+      { "@type": "Offer", "itemOffered": { "@id": "https://core-asset-sol.com/services/remarketing#service" } },
+      { "@type": "Offer", "itemOffered": { "@id": "https://core-asset-sol.com/services/asset-tracking-reporting#service" } }
+    ]
+  }
+}

@@ -1,0 +1,275 @@
+{
+  "_README": [
+    "TEMPLATE 1 of 4 — SERVICES OVERVIEW  (/services)",
+    "",
+    "Complete, self-contained @graph for the page. Everything the page needs is here: the",
+    "business entity, the website, the page itself, its hero image, breadcrumbs, and the",
+    "service list.",
+    "",
+    "WHAT THIS FIXES vs your live markup",
+    "  1. numberOfItems said 6 — you have 7 live service pages. asset-tracking-reporting was",
+    "     missing from the list entirely.",
+    "  2. No @id, description, isPartOf or breadcrumb on the CollectionPage (your industries",
+    "     overview has all four — the two pages were inconsistent).",
+    "  3. No business entity on the page, so it carried zero local signals despite targeting",
+    "     'electronics recycling services Cincinnati'.",
+    "  4. No image anywhere in the markup. The page has a purpose-built hero at",
+    "     /assets/industries-services-hero/services-overview-hero.png that nothing declared.",
+    "  5. ListItem entries had no name, description or image — just a bare nested item.",
+    "",
+    "RICH RESULT ELIGIBILITY: Breadcrumbs. CollectionPage and ItemList are not standalone",
+    "rich results here (ItemList carousels only apply to Recipe, Course, Restaurant and Movie),",
+    "but they are strong entity-comprehension signals and feed AI surfaces.",
+    "",
+    "Replace the _business-node block with the shared include. It is shown inline here so you",
+    "can see the whole graph in one place.",
+    "Strip all _README and _comment keys before shipping."
+  ],
+
+  "@context": "https://schema.org",
+  "@graph": [
+
+    {
+      "_comment": "SHARED BUSINESS NODE — identical on every page. See _business-node.jsonld for the full version with all comments. Abbreviated here only to keep this file readable; ship the COMPLETE node.",
+      "@type": "RecyclingCenter",
+      "@id": "https://core-asset-sol.com/#organization",
+      "name": "Core Asset Solutions",
+      "url": "https://core-asset-sol.com/",
+      "email": "info@core-asset-sol.com",
+      "telephone": "+1-513-433-7818",
+      "priceRange": "$$",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://core-asset-sol.com/#logo",
+        "url": "https://core-asset-sol.com/assets/logo_website_final_cropped2.png",
+        "width": 402,
+        "height": 372,
+        "caption": "Core Asset Solutions"
+      },
+      "image": { "@id": "https://core-asset-sol.com/#logo" },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "457 S Cooper Ave.",
+        "addressLocality": "Lockland",
+        "addressRegion": "OH",
+        "postalCode": "45215",
+        "addressCountry": "US"
+      },
+      "geo": { "@type": "GeoCoordinates", "latitude": "39.2241279", "longitude": "-84.4604809" },
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "08:00", "closes": "18:00"
+      }],
+      "areaServed": [
+        { "@type": "GeoCircle", "@id": "https://core-asset-sol.com/#pickup-radius",
+          "geoMidpoint": { "@type": "GeoCoordinates", "latitude": "39.2241279", "longitude": "-84.4604809" },
+          "geoRadius": "193121" },
+        { "@type": "State", "name": "Ohio" },
+        { "@type": "State", "name": "Indiana" },
+        { "@type": "State", "name": "Kentucky" },
+        { "@type": "City", "name": "Cincinnati", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Dayton", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Columbus", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Indianapolis", "containedInPlace": { "@type": "State", "name": "Indiana" } },
+        { "@type": "City", "name": "Louisville", "containedInPlace": { "@type": "State", "name": "Kentucky" } }
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/company/coreassetsolutions/",
+        "https://www.facebook.com/CoreAssetSolutions/",
+        "https://www.instagram.com/coreassetsolutions/",
+        "https://x.com/coreassetsol"
+      ]
+    },
+
+    {
+      "@type": "WebSite",
+      "@id": "https://core-asset-sol.com/#website",
+      "url": "https://core-asset-sol.com/",
+      "name": "Core Asset Solutions",
+      "inLanguage": "en-US",
+      "publisher": { "@id": "https://core-asset-sol.com/#organization" }
+    },
+
+    {
+      "_comment_image": [
+        "_ADDED_ Per-page hero image, declared as a first-class ImageObject with its own @id so",
+        "both the page and the collection can reference it.",
+        "",
+        "Your live og:image on THIS page (and every other page) is the company logo. That is a",
+        "miss — you already have a purpose-built hero here. Point og:image at this same file.",
+        "",
+        "SIZE WARNING: the current file is 848x565 and 521 KB. Google wants large images for",
+        "image-bearing results (1200px+ on the long edge is the working target), and 521 KB of",
+        "PNG for that pixel count is very heavy. Re-export at 1200x630 as WebP — you will get a",
+        "bigger image at roughly a fifth of the weight. Update width/height here when you do."
+      ],
+      "@type": "ImageObject",
+      "@id": "https://core-asset-sol.com/services#primaryimage",
+      "url": "https://core-asset-sol.com/assets/industries-services-hero/services-overview-hero.png",
+      "contentUrl": "https://core-asset-sol.com/assets/industries-services-hero/services-overview-hero.png",
+      "width": 848,
+      "height": 565,
+      "caption": "Core Asset Solutions IT asset disposition and electronics recycling services",
+      "representativeOfPage": true
+    },
+
+    {
+      "@type": "CollectionPage",
+      "@id": "https://core-asset-sol.com/services#webpage",
+      "url": "https://core-asset-sol.com/services",
+      "name": "Electronics Recycling Services & Enterprise ITAD Solutions",
+      "description": "REPLACE_WITH_YOUR_UPDATED_META_DESCRIPTION — keep it identical to the <meta name=\"description\"> on the page.",
+      "isPartOf": { "@id": "https://core-asset-sol.com/#website" },
+      "about": { "@id": "https://core-asset-sol.com/#organization" },
+      "breadcrumb": { "@id": "https://core-asset-sol.com/services#breadcrumb" },
+      "primaryImageOfPage": { "@id": "https://core-asset-sol.com/services#primaryimage" },
+      "mainEntity": { "@id": "https://core-asset-sol.com/services#service-list" },
+      "inLanguage": "en-US",
+
+      "_comment_provider": "Ties this hub page to the business entity, so the page carries local signals instead of floating free.",
+      "provider": { "@id": "https://core-asset-sol.com/#organization" }
+    },
+
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://core-asset-sol.com/services#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://core-asset-sol.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://core-asset-sol.com/services" }
+      ]
+    },
+
+    {
+      "_comment_list": [
+        "All SEVEN services. Your live markup declares numberOfItems: 6 and omits",
+        "asset-tracking-reporting. Keep numberOfItems in sync with itemListElement length or the",
+        "list is self-contradicting.",
+        "",
+        "Each entry gets name + description + url + image on the nested Service. The @id on each",
+        "Service matches the @id used on that service's own detail page, which is what lets Google",
+        "connect the hub entry to the full node on the detail page."
+      ],
+      "@type": "ItemList",
+      "@id": "https://core-asset-sol.com/services#service-list",
+      "name": "IT Asset Disposition and Electronics Recycling Services",
+      "itemListOrder": "https://schema.org/ItemListOrderAscending",
+      "numberOfItems": 7,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Enterprise ITAD Programs",
+          "url": "https://core-asset-sol.com/services/itad",
+          "item": {
+            "@type": "Service",
+            "@id": "https://core-asset-sol.com/services/itad#service",
+            "name": "Enterprise ITAD Programs",
+            "url": "https://core-asset-sol.com/services/itad",
+            "serviceType": "IT Asset Disposition",
+            "description": "REPLACE_WITH_ONE_SENTENCE_SUMMARY",
+            "image": "https://core-asset-sol.com/assets/industries-services-hero/REPLACE-itad-hero.png",
+            "provider": { "@id": "https://core-asset-sol.com/#organization" }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Electronics Recycling",
+          "url": "https://core-asset-sol.com/services/electronics-recycling",
+          "item": {
+            "@type": "Service",
+            "@id": "https://core-asset-sol.com/services/electronics-recycling#service",
+            "name": "Electronics Recycling",
+            "url": "https://core-asset-sol.com/services/electronics-recycling",
+            "serviceType": "Electronics Recycling",
+            "description": "REPLACE_WITH_ONE_SENTENCE_SUMMARY",
+            "image": "https://core-asset-sol.com/assets/industries-services-hero/REPLACE-electronics-recycling-hero.png",
+            "provider": { "@id": "https://core-asset-sol.com/#organization" }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Data Destruction",
+          "url": "https://core-asset-sol.com/services/data-destruction",
+          "item": {
+            "@type": "Service",
+            "@id": "https://core-asset-sol.com/services/data-destruction#service",
+            "name": "Data Destruction",
+            "url": "https://core-asset-sol.com/services/data-destruction",
+            "serviceType": "Data Destruction",
+            "description": "NIST 800-88r2 media sanitization using Clear, Purge and Destroy methods, with serialized certificates of destruction.",
+            "image": "https://core-asset-sol.com/assets/industries-services-hero/data-destruction-service-hero.png",
+            "provider": { "@id": "https://core-asset-sol.com/#organization" }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Hard Drive Destruction",
+          "url": "https://core-asset-sol.com/services/hard-drive-destruction",
+          "item": {
+            "@type": "Service",
+            "@id": "https://core-asset-sol.com/services/hard-drive-destruction#service",
+            "name": "Hard Drive Destruction",
+            "url": "https://core-asset-sol.com/services/hard-drive-destruction",
+            "serviceType": "Hard Drive Destruction",
+            "description": "REPLACE_WITH_ONE_SENTENCE_SUMMARY",
+            "image": "https://core-asset-sol.com/assets/industries-services-hero/REPLACE-hdd-hero.png",
+            "provider": { "@id": "https://core-asset-sol.com/#organization" }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Data Center Decommissioning",
+          "url": "https://core-asset-sol.com/services/decommissioning",
+          "item": {
+            "@type": "Service",
+            "@id": "https://core-asset-sol.com/services/decommissioning#service",
+            "name": "Data Center Decommissioning",
+            "url": "https://core-asset-sol.com/services/decommissioning",
+            "serviceType": "Data Center Decommissioning",
+            "description": "REPLACE_WITH_ONE_SENTENCE_SUMMARY",
+            "image": "https://core-asset-sol.com/assets/industries-services-hero/REPLACE-decommissioning-hero.png",
+            "provider": { "@id": "https://core-asset-sol.com/#organization" }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "name": "Asset Remarketing",
+          "url": "https://core-asset-sol.com/services/remarketing",
+          "item": {
+            "@type": "Service",
+            "@id": "https://core-asset-sol.com/services/remarketing#service",
+            "name": "Asset Remarketing",
+            "url": "https://core-asset-sol.com/services/remarketing",
+            "serviceType": "IT Asset Remarketing",
+            "description": "REPLACE_WITH_ONE_SENTENCE_SUMMARY",
+            "image": "https://core-asset-sol.com/assets/industries-services-hero/REPLACE-remarketing-hero.png",
+            "provider": { "@id": "https://core-asset-sol.com/#organization" }
+          }
+        },
+        {
+          "_comment": "MISSING from your live markup. This is the seventh service page and it exists at HTTP 200.",
+          "@type": "ListItem",
+          "position": 7,
+          "name": "Asset Tracking & Reporting",
+          "url": "https://core-asset-sol.com/services/asset-tracking-reporting",
+          "item": {
+            "@type": "Service",
+            "@id": "https://core-asset-sol.com/services/asset-tracking-reporting#service",
+            "name": "Asset Tracking & Reporting",
+            "url": "https://core-asset-sol.com/services/asset-tracking-reporting",
+            "serviceType": "IT Asset Tracking and Reporting",
+            "description": "REPLACE_WITH_ONE_SENTENCE_SUMMARY",
+            "image": "https://core-asset-sol.com/assets/industries-services-hero/REPLACE-asset-tracking-hero.png",
+            "provider": { "@id": "https://core-asset-sol.com/#organization" }
+          }
+        }
+      ]
+    }
+  ]
+}

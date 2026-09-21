@@ -1,0 +1,46 @@
+User-agent: *
+Allow: /
+
+# Cloudflare email-obfuscation endpoint. Returns 404 and is linked from /contact,
+# /faqs, and /privacy.
+Disallow: /cdn-cgi/
+
+Sitemap: https://core-asset-sol.com/sitemap.xml
+
+
+# -----------------------------------------------------------------------------
+# REMOVED: Disallow: /partials/
+# -----------------------------------------------------------------------------
+# An earlier revision of this file recommended blocking /partials/ alongside an
+# X-Robots-Tag: noindex header. Do not run both at once - they cancel out, and
+# right now the block is actively harmful.
+#
+# 1. They cancel out. Disallow stops Googlebot FETCHING the URL, so it never sees
+#    the noindex header. The noindex becomes inert and already-indexed partial
+#    URLs have no removal path.
+#
+# 2. More seriously: while the header and footer are still injected client-side,
+#    Googlebot's renderer fetching /partials/header and /partials/footer is the
+#    ONLY way it can discover the site navigation - the served HTML contains zero
+#    <nav> and zero <footer> elements. Blocking that fetch means Google sees no
+#    navigation at all, in raw HTML or after rendering.
+#
+# Correct sequence:
+#   a. Keep X-Robots-Tag: noindex in _headers, NO Disallow here. Googlebot can
+#      crawl the partials (rendering works) and sees the noindex (URLs drop out).
+#   b. Ship build-time inlining (build/inline-partials.mjs) so the nav is in the
+#      HTML and nothing fetches /partials/* at runtime.
+#   c. Stop publishing partials/ entirely. The URLs 404, and P1-4 is fully closed
+#      with no robots rule and no header needed.
+
+# -----------------------------------------------------------------------------
+# REMOVED: Disallow: /404  and  Disallow: /404.html
+# -----------------------------------------------------------------------------
+# Blocking these hides the soft 404 rather than fixing it, and prevents Googlebot
+# from ever seeing the 404 status that would tell it to drop the URL. The URLs
+# just move from the "Soft 404" bucket to "Blocked by robots.txt" - still not
+# indexed, only filed differently.
+#
+# Fix the status code instead. _redirects cannot do it (Cloudflare Pages supports
+# only 301/302/303/307/308 there), so use the Pages Function in functions/404.js.
+# Once /404 returns a real 404, no robots rule is needed.

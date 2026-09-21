@@ -1,0 +1,24 @@
+# Cloudflare Pages _headers
+# Place at the root of the build output directory.
+
+# Navigation fragments must never be indexed as standalone pages.
+#
+# IMPORTANT: do NOT also add "Disallow: /partials/" to robots.txt while the header
+# and footer are still injected client-side. Disallow stops Googlebot fetching the
+# URL, which means (a) it never sees this noindex header, so the header is inert,
+# and (b) its renderer cannot fetch the partials, so it sees no site navigation at
+# all - the served HTML has zero <nav> and zero <footer> elements.
+#
+# noindex WITHOUT a robots.txt block is the correct interim state: Googlebot can
+# crawl the fragments (so rendering still works) and sees the directive (so the
+# fragment URLs drop out of the index).
+#
+# Once build/inline-partials.mjs is live, stop publishing partials/ altogether.
+# The URLs 404, and this rule becomes unnecessary.
+/partials/*
+  X-Robots-Tag: noindex, nofollow
+
+# PDFs are indexable documents and should carry their own indexing directives.
+# These are legitimate lead magnets - keep them indexable, but make it explicit.
+/resources/*.pdf
+  X-Robots-Tag: index, follow, max-snippet:-1, max-image-preview:large

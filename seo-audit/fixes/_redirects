@@ -1,0 +1,80 @@
+# Cloudflare Pages _redirects
+# Place at the root of the build output directory.
+# Syntax: /from  /to  <status>
+# Cloudflare Pages already handles .html stripping and trailing-slash
+# normalisation automatically, so those rules are deliberately NOT repeated here.
+
+# --- P1-3: typo'd PDF, currently 404, linked from two industry pages ----------
+# The real file uses underscores. Fix the two <a href> values in the page source
+# as the primary fix; this rule catches anything already shared externally.
+/resources/Certificate-Of-Destruction.pdf   /resources/Certificate_Of_Destruction.pdf   301
+
+# --- P3-7: root double slash currently returns 200, a duplicate of the homepage
+//                                          /                                          301
+
+# --- Existing redirects, documented so they are not accidentally removed ------
+# These are all correct. Keep them for at least 12 months.
+/sustainability                             /resources/reporting-esg                   301
+/industries                                 /industries-served                         301
+/locations                                  /about/locations                           301
+/schedule-consultation                      /schedule-consultation-form                301
+/resources/sample-certificate-of-media-sanitization.pdf  /resources/Certificate_Media_Sanitization.pdf  301
+
+# --- P0-4: www  -- DO NOT PUT THIS RULE IN THIS FILE -------------------------
+# Status 2026-08-22: DNS is fixed (www resolves, TLS covers *.core-asset-sol.com)
+# but the redirect is BROKEN. It emits a literal, uninterpolated ":splat":
+#
+#     https://www.core-asset-sol.com/contact
+#       -> 301 -> https://core-asset-sol.com/:splat  -> 404
+#
+# Every www URL, whatever the path, lands on the same 404.
+#
+# Root cause: ":splat" is Netlify / Cloudflare Pages _redirects syntax. It means
+# nothing in a Cloudflare Redirect Rule, whose wildcard replacement syntax is
+# ${1} / ${2}. Cloudflare treated ":splat" as a literal string and copied it into
+# the Location header verbatim.
+#
+# The rule is running as a Cloudflare Redirect Rule at the edge, not through
+# Pages - the response has no cf-cache-status and no access-control-allow-origin,
+# so it never reaches this file.
+#
+# It cannot live in this file either way: Cloudflare Pages does not support
+# domain-level redirects in _redirects, because _redirects cannot match on
+# hostname. Attempting "/*  https://core-asset-sol.com/:splat  301" here would
+# also match apex requests and cause an infinite redirect loop.
+#
+# CORRECT FIX - Cloudflare dashboard > zone > Rules > Redirect Rules.
+# Using the Wildcard pattern mode the dashboard defaults to:
+#
+#     When incoming requests match -> Wildcard pattern
+#       Request URL:  http*://www.core-asset-sol.com/*
+#     Then
+#       Target URL:   https://core-asset-sol.com/${2}
+#       Status code:  301
+#       Preserve query string: Enabled
+#
+# WATCH THE NUMBERING. ${1}/${2} refer to the asterisks in the Request URL, in
+# order. In the pattern above the first * is the "s" in http*, so the PATH is
+# the SECOND capture:
+#     https://www.core-asset-sol.com/*   -> 1 wildcard  -> path is ${1}
+#     http*://www.core-asset-sol.com/*   -> 2 wildcards -> path is ${2}
+#
+# The leading http*:// also matches port 80, which fixes the separate 522 error
+# on http://www.core-asset-sol.com/. Confirm the www DNS record is proxied
+# (orange cloud), not DNS-only.
+#
+# Equivalent using the expression editor instead:
+#     If:    (http.host eq "www.core-asset-sol.com")
+#     Then:  type = Dynamic
+#            expression = concat("https://core-asset-sol.com", http.request.uri.path)
+#
+# Verify:
+#     curl -sSI https://www.core-asset-sol.com/contact | grep -iE '^(HTTP|location)'
+#     -> want: 301 and location: https://core-asset-sol.com/contact
+#        NOT /:splat, NOT /${2}, NOT a bare /
+
+# --- NOT recommended ---------------------------------------------------------
+# Do NOT add a catch-all such as:  /*  /  301
+# Redirecting unknown URLs to the homepage is treated by Google as a soft 404 and
+# is worse than a clean 404. The site currently returns proper 404s for unknown
+# paths - keep that behaviour.

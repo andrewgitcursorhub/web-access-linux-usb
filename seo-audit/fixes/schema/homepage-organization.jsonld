@@ -1,0 +1,136 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "RecyclingCenter",
+      "@id": "https://core-asset-sol.com/#organization",
+      "name": "Core Asset Solutions",
+      "alternateName": "CAS",
+      "url": "https://core-asset-sol.com/",
+      "description": "Enterprise IT asset disposition, secure electronics recycling, and NIST 800-88 data destruction for businesses, healthcare systems, schools, and government agencies in Cincinnati, Dayton, and Southern Ohio.",
+      "email": "info@core-asset-sol.com",
+      "telephone": "+1-513-433-7818",
+      "priceRange": "$$",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://core-asset-sol.com/#logo",
+        "url": "https://core-asset-sol.com/assets/logo_website_final_cropped2.png",
+        "contentUrl": "https://core-asset-sol.com/assets/logo_website_final_cropped2.png",
+        "width": 600,
+        "height": 60,
+        "caption": "Core Asset Solutions"
+      },
+      "image": {
+        "@id": "https://core-asset-sol.com/#logo"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "457 South Cooper Ave.",
+        "addressLocality": "Cincinnati",
+        "addressRegion": "OH",
+        "postalCode": "45215",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "REPLACE_WITH_REAL_LATITUDE",
+        "longitude": "REPLACE_WITH_REAL_LONGITUDE"
+      },
+      "hasMap": "REPLACE_WITH_GOOGLE_BUSINESS_PROFILE_MAP_URL",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
+          ],
+          "opens": "08:00",
+          "closes": "18:00"
+        }
+      ],
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "telephone": "+1-513-433-7818",
+          "email": "info@core-asset-sol.com",
+          "areaServed": "US",
+          "availableLanguage": "English"
+        }
+      ],
+      "areaServed": [
+        { "@type": "City", "name": "Cincinnati", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Dayton", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "AdministrativeArea", "name": "Hamilton County", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "AdministrativeArea", "name": "Butler County", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "AdministrativeArea", "name": "Greene County", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "AdministrativeArea", "name": "Montgomery County", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "State", "name": "Ohio" }
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/company/coreassetsolutions/",
+        "https://www.facebook.com/CoreAssetSolutions/",
+        "https://www.instagram.com/coreassetsolutions/",
+        "https://x.com/coreassetsol"
+      ],
+      "knowsAbout": [
+        "Electronics Recycling",
+        "IT Asset Disposition",
+        "ITAD Services",
+        "Data Destruction",
+        "Hard Drive Shredding",
+        "HIPAA Compliance",
+        "Government Recycling",
+        "Healthcare ITAD",
+        "Corporate E-Waste Management",
+        "Secure Data Wiping",
+        "Asset Remarketing",
+        "Certificate of Destruction",
+        "NIST Data Destruction",
+        "Media Sanitization",
+        "E-Waste Management",
+        "Electronic Waste Disposal",
+        "Computer Recycling",
+        "Server Recycling",
+        "Medical Equipment Disposal"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "IT Asset Disposition Services",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "IT Asset Disposition", "url": "https://core-asset-sol.com/services/itad" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Electronics Recycling", "url": "https://core-asset-sol.com/services/electronics-recycling" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Data Destruction", "url": "https://core-asset-sol.com/services/data-destruction" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Hard Drive Destruction", "url": "https://core-asset-sol.com/services/hard-drive-destruction" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Data Center Decommissioning", "url": "https://core-asset-sol.com/services/decommissioning" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Asset Remarketing", "url": "https://core-asset-sol.com/services/remarketing" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Asset Tracking and Reporting", "url": "https://core-asset-sol.com/services/asset-tracking-reporting" } }
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://core-asset-sol.com/#website",
+      "url": "https://core-asset-sol.com/",
+      "name": "Core Asset Solutions",
+      "inLanguage": "en-US",
+      "about": { "@id": "https://core-asset-sol.com/#organization" },
+      "publisher": { "@id": "https://core-asset-sol.com/#organization" }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://core-asset-sol.com/#webpage",
+      "url": "https://core-asset-sol.com/",
+      "name": "IT Asset Disposition and Secure Electronics Recycling in Cincinnati | Core Asset Solutions",
+      "description": "E-Waste Pickup and Recycling for Corporate IT Departments, Schools and Businesses of all sizes in Cincinnati and Dayton, Ohio. Data Destruction services, value recovery for qualifying IT assets.",
+      "isPartOf": { "@id": "https://core-asset-sol.com/#website" },
+      "about": { "@id": "https://core-asset-sol.com/#organization" },
+      "primaryImageOfPage": { "@id": "https://core-asset-sol.com/#logo" },
+      "inLanguage": "en-US"
+    }
+  ]
+}
