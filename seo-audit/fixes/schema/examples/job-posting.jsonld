@@ -1,0 +1,61 @@
+{
+  "_comment": [
+    "JobPosting - for a new /careers page. /careers currently returns 404.",
+    "",
+    "Produces a job posting rich result AND enters the listing into Google's job",
+    "search experience, a separate and far less contested surface. Highest-value",
+    "unclaimed rich result for this site.",
+    "",
+    "Required: title, description, datePosted, hiringOrganization, jobLocation.",
+    "baseSalary and employmentType materially improve match quality.",
+    "",
+    "CRITICAL: set validThrough, and remove the posting (or let validThrough lapse)",
+    "when the role closes. Stale postings are the most common reason sites lose this",
+    "rich result. Each open role needs its own URL with its own JobPosting block.",
+    "",
+    "description accepts HTML and should be the complete job description, not a",
+    "summary - Google uses it directly in the job search UI."
+  ],
+
+  "@context": "https://schema.org",
+  "@type": "JobPosting",
+  "title": "REPLACE_WITH_JOB_TITLE",
+  "description": "<p>REPLACE_WITH_FULL_HTML_JOB_DESCRIPTION including responsibilities, requirements, and benefits.</p>",
+  "identifier": {
+    "@type": "PropertyValue",
+    "name": "Core Asset Solutions",
+    "value": "REPLACE_WITH_INTERNAL_REQ_ID"
+  },
+  "datePosted": "REPLACE_WITH_ISO_DATE",
+  "validThrough": "REPLACE_WITH_ISO_DATETIME",
+  "employmentType": "FULL_TIME",
+  "hiringOrganization": {
+    "@type": "Organization",
+    "name": "Core Asset Solutions",
+    "sameAs": "https://core-asset-sol.com/",
+    "logo": "https://core-asset-sol.com/assets/logo_website_final_cropped2.png"
+  },
+  "jobLocation": {
+    "@type": "Place",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "457 South Cooper Ave.",
+      "addressLocality": "Cincinnati",
+      "addressRegion": "OH",
+      "postalCode": "45215",
+      "addressCountry": "US"
+    }
+  },
+  "baseSalary": {
+    "@type": "MonetaryAmount",
+    "currency": "USD",
+    "value": {
+      "@type": "QuantitativeValue",
+      "minValue": "REPLACE_WITH_MIN",
+      "maxValue": "REPLACE_WITH_MAX",
+      "unitText": "HOUR"
+    }
+  },
+  "industry": "IT Asset Disposition and Electronics Recycling",
+  "directApply": true
+}

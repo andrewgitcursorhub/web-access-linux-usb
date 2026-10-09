@@ -1,0 +1,47 @@
+{
+  "_comment": [
+    "ProfilePage + Person - for a new /about/team page.",
+    "",
+    "Named people with verifiable credentials (R2v3 lead auditor, NAID-certified",
+    "technicians, e-Stewards trained staff) is one of the strongest E-E-A-T signals",
+    "available to a business whose product is regulatory compliance.",
+    "",
+    "ProfilePage requires mainEntity (the Person or Organization the page is about)",
+    "and expects dateCreated / dateModified.",
+    "",
+    "Only mark up real people with real credentials. Fabricated credentials on a",
+    "compliance vendor's site is a serious trust problem well beyond SEO."
+  ],
+
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": "https://core-asset-sol.com/about/team#REPLACE_WITH_SLUG",
+  "url": "https://core-asset-sol.com/about/team",
+  "dateCreated": "REPLACE_WITH_ISO_DATETIME",
+  "dateModified": "REPLACE_WITH_ISO_DATETIME",
+  "mainEntity": {
+    "@type": "Person",
+    "@id": "https://core-asset-sol.com/about/team#REPLACE_WITH_SLUG-person",
+    "name": "REPLACE_WITH_FULL_NAME",
+    "jobTitle": "REPLACE_WITH_JOB_TITLE",
+    "description": "REPLACE_WITH_BIO covering years of experience and areas of responsibility.",
+    "image": "https://core-asset-sol.com/REPLACE_WITH_HEADSHOT.jpg",
+    "worksFor": { "@id": "https://core-asset-sol.com/#organization" },
+    "knowsAbout": [
+      "IT Asset Disposition",
+      "NIST 800-88 Media Sanitization",
+      "R2v3 Responsible Recycling",
+      "HIPAA Compliance"
+    ],
+    "hasCredential": {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "certification",
+      "name": "REPLACE_WITH_CERTIFICATION_NAME",
+      "recognizedBy": {
+        "@type": "Organization",
+        "name": "REPLACE_WITH_CERTIFYING_BODY"
+      }
+    },
+    "sameAs": ["REPLACE_WITH_LINKEDIN_PROFILE_URL"]
+  }
+}

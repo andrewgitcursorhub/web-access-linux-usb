@@ -1,0 +1,33 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://core-asset-sol.com/specialty-equipment-we-handle#webpage",
+      "name": "Specialty Equipment We Handle",
+      "url": "https://core-asset-sol.com/specialty-equipment-we-handle",
+      "description": "Structured disposition for non-standard and specialty equipment including medical devices, laboratory instruments, industrial systems, test and measurement equipment, and telecom infrastructure.",
+      "isPartOf": { "@id": "https://core-asset-sol.com/#website" },
+      "about": { "@id": "https://core-asset-sol.com/#organization" },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://core-asset-sol.com/specialty-equipment-we-handle#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://core-asset-sol.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Specialty Equipment",
+          "item": "https://core-asset-sol.com/specialty-equipment-we-handle"
+        }
+      ]
+    }
+  ]
+}

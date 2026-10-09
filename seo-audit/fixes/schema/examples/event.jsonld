@@ -1,0 +1,55 @@
+{
+  "_comment": [
+    "Event - for a new /events page covering community e-waste collection days,",
+    "business drop-off events, shred events, and campus collection drives.",
+    "",
+    "The most natural rich result fit on Google's list for a recycling business, and",
+    "almost nobody in the ITAD vertical implements it. Also generates exactly the",
+    "local-relevance signals that support Cincinnati and Dayton rankings.",
+    "",
+    "Required: name, startDate, location.",
+    "",
+    "Mark up ONE Event per event. Do not emit a single Event representing a calendar",
+    "or a recurring series - Google treats that as invalid. A recurring monthly drive",
+    "is N separate Event objects, ideally each on its own URL.",
+    "",
+    "Keep eventStatus current. Use EventCancelled / EventPostponed / EventRescheduled",
+    "rather than deleting the markup, so Google can update the result."
+  ],
+
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "REPLACE_WITH_EVENT_NAME (e.g. Free Community Electronics Recycling Drop-Off - Springdale)",
+  "description": "REPLACE_WITH_DESCRIPTION covering what residents and businesses may bring, any items not accepted, and whether data-bearing devices are handled on site.",
+  "startDate": "REPLACE_WITH_ISO_DATETIME_WITH_OFFSET",
+  "endDate": "REPLACE_WITH_ISO_DATETIME_WITH_OFFSET",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "location": {
+    "@type": "Place",
+    "name": "REPLACE_WITH_VENUE_NAME",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "REPLACE_WITH_STREET",
+      "addressLocality": "REPLACE_WITH_CITY",
+      "addressRegion": "OH",
+      "postalCode": "REPLACE_WITH_ZIP",
+      "addressCountry": "US"
+    }
+  },
+  "image": [
+    "https://core-asset-sol.com/REPLACE_WITH_EVENT_IMAGE.jpg"
+  ],
+  "organizer": {
+    "@id": "https://core-asset-sol.com/#organization"
+  },
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock",
+    "validFrom": "REPLACE_WITH_ISO_DATETIME",
+    "url": "https://core-asset-sol.com/events/REPLACE_WITH_EVENT_SLUG"
+  }
+}

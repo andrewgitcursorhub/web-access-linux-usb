@@ -1,0 +1,46 @@
+{
+  "_comment": [
+    "VideoObject - for /services/hard-drive-destruction and /services/data-destruction.",
+    "",
+    "Puts a video thumbnail in the search result and makes the page eligible for the",
+    "Video tab. For a service where buyers want proof of process (shredding",
+    "demonstration, facility tour, chain-of-custody walkthrough), this is a strong",
+    "click-through lever.",
+    "",
+    "Required: name, description, thumbnailUrl, uploadDate.",
+    "",
+    "The video must be visibly embedded on the page and playable - do not mark up a",
+    "video that is not actually present. contentUrl (direct file) and/or embedUrl",
+    "(player) should be provided so Google can fetch it.",
+    "",
+    "duration uses ISO 8601: PT2M30S is 2 minutes 30 seconds.",
+    "",
+    "hasPart with Clip objects produces the key-moments treatment in results. Only",
+    "include it if the timestamps are real."
+  ],
+
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "REPLACE_WITH_VIDEO_TITLE (e.g. Inside Our Cincinnati Facility: NIST 800-88 Hard Drive Destruction)",
+  "description": "REPLACE_WITH_DESCRIPTION of what the video shows.",
+  "thumbnailUrl": [
+    "https://core-asset-sol.com/REPLACE_WITH_THUMBNAIL_16x9.jpg"
+  ],
+  "uploadDate": "REPLACE_WITH_ISO_DATETIME_WITH_OFFSET",
+  "duration": "REPLACE_WITH_ISO_8601_DURATION",
+  "contentUrl": "https://core-asset-sol.com/REPLACE_WITH_VIDEO_FILE.mp4",
+  "embedUrl": "REPLACE_WITH_PLAYER_URL_IF_HOSTED_EXTERNALLY",
+  "publisher": {
+    "@id": "https://core-asset-sol.com/#organization"
+  },
+  "transcript": "REPLACE_WITH_FULL_TRANSCRIPT - improves eligibility and is independently useful for accessibility and AI retrieval.",
+  "hasPart": [
+    {
+      "@type": "Clip",
+      "name": "REPLACE_WITH_CHAPTER_NAME",
+      "startOffset": 0,
+      "endOffset": 45,
+      "url": "https://core-asset-sol.com/services/hard-drive-destruction#t=0"
+    }
+  ]
+}

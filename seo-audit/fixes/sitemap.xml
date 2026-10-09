@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  core-asset-sol.com XML sitemap
+
+  Changes vs the live sitemap:
+    - REMOVED /sustainability  (301-redirects to /resources/reporting-esg; a sitemap
+      must contain only 200-status, self-canonical URLs)
+    - ADDED   /privacy, /terms, /sitemap  (live, indexable, previously omitted)
+    - ADDED   <lastmod> on every entry
+
+  34 URLs. This must equal the number of live indexable pages.
+
+  IMPORTANT: replace every REPLACE_WITH_* token with the real last-modified date
+  of that page (ISO 8601, e.g. 2026-08-17). Generate these at build time from the
+  source files. Do NOT set them all to today - a sitemap where everything changed
+  at once causes Google to ignore lastmod entirely.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://core-asset-sol.com/</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/cincinnati-itad-electronics-recycling</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/services</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/services/itad</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/services/electronics-recycling</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/services/data-destruction</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/services/hard-drive-destruction</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/services/decommissioning</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/services/remarketing</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/services/asset-tracking-reporting</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/industries-served</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/industries-served/education</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/industries-served/financial-services</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/industries-served/government</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/industries-served/healthcare</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/industries-served/industrial-equipment</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/industries-served/it-data-center</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/industries-served/media-entertainment</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/industries-served/test-measurement-equipment</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/resources</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/resources/itad-circular-economy</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/resources/reporting-esg</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/specialty-equipment-we-handle</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/faqs</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/about</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/about/process</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/about/locations</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/about/client-testimonials</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/contact</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/schedule-pickup-form</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/schedule-consultation-form</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/privacy</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/terms</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://core-asset-sol.com/sitemap</loc>
+    <lastmod>REPLACE_WITH_REAL_DATE</lastmod>
+    <priority>0.3</priority>
+  </url>
+</urlset>

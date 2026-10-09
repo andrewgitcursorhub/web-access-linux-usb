@@ -1,0 +1,249 @@
+<!--
+================================================================================
+CORE ASSET SOLUTIONS — SHARED BUSINESS NODE
+Paste this ONE block into the <head> of ALL 36 HTML pages, byte-identical.
+================================================================================
+
+WHAT IT IS
+  A self-contained @graph with two nodes: your business entity (#organization)
+  and your website (#website). Nothing in it is page-specific, which is why the
+  same block works on every page.
+
+WHY EVERY PAGE
+  Google evaluates each page on its own and does NOT resolve @id references
+  across pages. Today only 2 of your 34 pages carry a complete business entity,
+  so 32 pages have no address, no geo, no hours and no service area. They are
+  competing for "... in Cincinnati" with zero local signals. This fixes that in
+  one paste.
+
+WHERE TO PUT IT
+  In <head>, immediately after your existing <link rel="canonical"> line.
+  Keep your existing page-specific JSON-LD blocks exactly as they are.
+
+ABOUT YOUR EXISTING "provider" STUBS
+  Your service and industry pages contain:
+      "provider": { "@id": "https://core-asset-sol.com/#organization",
+                    "@type": "Organization", "name": "...", "url": "..." }
+  LEAVE THEM ALONE. They share the same @id as the node below, so JSON-LD merges
+  them into one entity and the stub simply inherits the full address, geo, hours
+  and areaServed. No edits needed. (RecyclingCenter is a subtype of Organization,
+  so the two type declarations are compatible, not conflicting.)
+
+THE GOOGLE BUSINESS PROFILE LINK IS VERIFIED
+  hasMap below is NOT guessed. On 2026-10-09 I requested
+  https://www.google.com/maps?cid=13429985598701594348 directly from Google and
+  it returned:
+        title   : "Core Asset Solutions - Google Maps"
+        address : 457 S Cooper Ave, Lockland, OH 45215
+        phone   : (513) 433-7818
+  That is your real listing. The maps.app.goo.gl link currently on
+  /about/client-testimonials is a REVIEWS url, not the listing — keep it there
+  for "leave us a review", but it is not what belongs in hasMap.
+
+  Sanity-check it yourself: open the URL. You should land on your own listing.
+
+ADDRESS — THIS IS NOW SETTLED
+  Google Business Profile holds: 457 S Cooper Ave, Lockland, OH 45215
+  So that exact string is canonical. Two things on your site contradict it today
+  and must be corrected wherever they appear:
+      /contact schema says addressLocality "Cincinnati"  -> must be "Lockland"
+      visible text says   "457 South Cooper Ave"         -> must be "457 S Cooper Ave"
+  NAP has to match your GBP character for character, including the abbreviation
+  and the absence of a trailing period.
+
+AFTER PASTING
+  Validate one page at https://validator.schema.org/ and one at
+  https://search.google.com/test/rich-results
+  Then run:  .\verify.ps1 -Only P2-5     (expect 34 of 34)
+================================================================================
+-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "RecyclingCenter",
+      "@id": "https://core-asset-sol.com/#organization",
+      "name": "Core Asset Solutions",
+      "alternateName": "CAS",
+      "url": "https://core-asset-sol.com/",
+      "description": "IT asset disposition, secure electronics recycling and NIST 800-88 data destruction for businesses, hospitals, schools and government agencies across Greater Cincinnati, Dayton, Columbus, southeastern Indiana and Northern Kentucky.",
+      "email": "info@core-asset-sol.com",
+      "telephone": "+1-513-433-7818",
+      "priceRange": "$$",
+      "currenciesAccepted": "USD",
+      "paymentAccepted": "Invoice, Check, ACH",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://core-asset-sol.com/#logo",
+        "url": "https://core-asset-sol.com/assets/logo_website_final_cropped2.png",
+        "contentUrl": "https://core-asset-sol.com/assets/logo_website_final_cropped2.png",
+        "width": 402,
+        "height": 372,
+        "caption": "Core Asset Solutions"
+      },
+      "image": { "@id": "https://core-asset-sol.com/#logo" },
+
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "457 S Cooper Ave",
+        "addressLocality": "Lockland",
+        "addressRegion": "OH",
+        "postalCode": "45215",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 39.2241279,
+        "longitude": -84.4604809
+      },
+      "hasMap": "https://www.google.com/maps?cid=13429985598701594348",
+
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "08:00",
+          "closes": "18:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Saturday",
+          "opens": "08:00",
+          "closes": "18:00"
+        }
+      ],
+
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "telephone": "+1-513-433-7818",
+          "email": "info@core-asset-sol.com",
+          "url": "https://core-asset-sol.com/contact",
+          "availableLanguage": "English",
+          "areaServed": ["US-OH", "US-IN", "US-KY"]
+        },
+        {
+          "@type": "ContactPoint",
+          "contactType": "sales",
+          "telephone": "+1-513-433-7818",
+          "email": "info@core-asset-sol.com",
+          "url": "https://core-asset-sol.com/schedule-consultation-form",
+          "availableLanguage": "English",
+          "areaServed": ["US-OH", "US-IN", "US-KY"]
+        }
+      ],
+
+      "areaServed": [
+        {
+          "@type": "GeoCircle",
+          "@id": "https://core-asset-sol.com/#pickup-radius",
+          "name": "Core Asset Solutions on-site pickup radius",
+          "description": "Scheduled on-site electronics and IT asset pickup radius measured from the Lockland, Ohio processing facility.",
+          "geoMidpoint": {
+            "@type": "GeoCoordinates",
+            "latitude": 39.2241279,
+            "longitude": -84.4604809
+          },
+          "geoRadius": "193121"
+        },
+
+        { "@type": "City", "name": "Cincinnati", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Blue Ash", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Mason", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Lockland", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Dayton", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Columbus", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+
+        {
+          "@type": "Place",
+          "name": "Over-the-Rhine",
+          "description": "Historic business district in Cincinnati, Ohio.",
+          "containedInPlace": { "@type": "City", "name": "Cincinnati", "containedInPlace": { "@type": "State", "name": "Ohio" } }
+        },
+
+        { "@type": "AdministrativeArea", "name": "Hamilton County", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "AdministrativeArea", "name": "Butler County", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "AdministrativeArea", "name": "Warren County", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "AdministrativeArea", "name": "Clermont County", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "AdministrativeArea", "name": "Montgomery County", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "AdministrativeArea", "name": "Greene County", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "AdministrativeArea", "name": "Franklin County", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+
+        {
+          "@type": "Place",
+          "name": "Northern Kentucky",
+          "description": "The Kentucky portion of the Greater Cincinnati metropolitan area.",
+          "containedInPlace": { "@type": "State", "name": "Kentucky" }
+        },
+        { "@type": "AdministrativeArea", "name": "Boone County", "containedInPlace": { "@type": "State", "name": "Kentucky" } },
+        { "@type": "AdministrativeArea", "name": "Kenton County", "containedInPlace": { "@type": "State", "name": "Kentucky" } },
+        { "@type": "AdministrativeArea", "name": "Campbell County", "containedInPlace": { "@type": "State", "name": "Kentucky" } },
+
+        { "@type": "AdministrativeArea", "name": "Dearborn County", "containedInPlace": { "@type": "State", "name": "Indiana" } },
+
+        { "@type": "State", "name": "Ohio", "alternateName": "OH" },
+        { "@type": "State", "name": "Indiana", "alternateName": "IN" },
+        { "@type": "State", "name": "Kentucky", "alternateName": "KY" }
+      ],
+
+      "sameAs": [
+        "https://www.linkedin.com/company/coreassetsolutions/",
+        "https://www.facebook.com/CoreAssetSolutions/",
+        "https://www.instagram.com/coreassetsolutions/",
+        "https://x.com/coreassetsol"
+      ],
+
+      "knowsAbout": [
+        "IT Asset Disposition",
+        "ITAD Services",
+        "Electronics Recycling",
+        "E-Waste Recycling",
+        "Data Destruction",
+        "Hard Drive Shredding",
+        "Media Sanitization",
+        "NIST 800-88 Data Sanitization",
+        "Certificate of Destruction",
+        "Chain of Custody",
+        "Data Center Decommissioning",
+        "Asset Remarketing",
+        "IT Asset Tracking and Reporting",
+        "HIPAA Compliance",
+        "Healthcare ITAD",
+        "Government Electronics Recycling",
+        "Corporate E-Waste Management",
+        "Computer Recycling",
+        "Server Recycling",
+        "Medical Equipment Disposal",
+        "Scope 3 Emissions Reporting"
+      ],
+
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "@id": "https://core-asset-sol.com/#service-catalog",
+        "name": "IT Asset Disposition and Electronics Recycling Services",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Enterprise ITAD Programs", "url": "https://core-asset-sol.com/services/itad" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Electronics Recycling", "url": "https://core-asset-sol.com/services/electronics-recycling" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Data Destruction", "url": "https://core-asset-sol.com/services/data-destruction" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Hard Drive Destruction", "url": "https://core-asset-sol.com/services/hard-drive-destruction" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Data Center Decommissioning", "url": "https://core-asset-sol.com/services/decommissioning" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Asset Remarketing", "url": "https://core-asset-sol.com/services/remarketing" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Asset Tracking and Reporting", "url": "https://core-asset-sol.com/services/asset-tracking-reporting" } }
+        ]
+      }
+    },
+
+    {
+      "@type": "WebSite",
+      "@id": "https://core-asset-sol.com/#website",
+      "url": "https://core-asset-sol.com/",
+      "name": "Core Asset Solutions",
+      "inLanguage": "en-US",
+      "publisher": { "@id": "https://core-asset-sol.com/#organization" },
+      "about": { "@id": "https://core-asset-sol.com/#organization" }
+    }
+  ]
+}
+</script>

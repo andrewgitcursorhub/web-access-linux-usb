@@ -1,0 +1,309 @@
+{
+  "_README": [
+    "TEMPLATE 4 of 4 — REPEATABLE INDUSTRY PAGE  (/industries-served/healthcare)",
+    "",
+    "This is the pattern for all 8 industry pages. To adapt it, change the Service node, the",
+    "audience, the compliance block, the image, the WebPage, the breadcrumb leaf, and the FAQ.",
+    "",
+    "THE CENTRAL IDEA — this is the answer to your question about expressing that healthcare",
+    "gets a heightened HIPAA/HITECH focus you would not apply elsewhere:",
+    "",
+    "An industry page is NOT a different service. It is the SAME service delivered to a",
+    "narrowed audience under a specific regulatory regime. Model it that way and the",
+    "differentiation becomes machine-readable:",
+    "",
+    "  isSimilarTo / isRelatedTo  -> links back to the core service pages, so Google understands",
+    "                                this is healthcare-flavoured data destruction, not a",
+    "                                separate unrelated offering",
+    "  audience: MedicalAudience  -> the narrowing. MedicalAudience is a real schema.org type and",
+    "                                is far more specific than the generic Audience your live",
+    "                                markup uses",
+    "  about: DefinedTerm HIPAA   -> the regulatory regime as an ENTITY with an authoritative",
+    "         + HITECH               hhs.gov URL, not a keyword string",
+    "  additionalProperty         -> the concrete obligations you meet",
+    "",
+    "The equivalent blocks on your other industry pages carry FERPA, GLBA, FISMA and so on.",
+    "Same shape, different regime. That is what tells Google these are genuinely distinct pages",
+    "rather than eight near-duplicates of one service page.",
+    "",
+    "WHAT THIS FIXES vs your live markup",
+    "  1. provider stub with a cross-page @id — same fix as template 3.",
+    "  2. audience was a generic Audience with a prose string. Now MedicalAudience.",
+    "  3. Zero compliance signals in the structured data, despite HIPAA appearing 11 times and",
+    "     HITECH 3 times in the visible copy. The page says it; the markup did not.",
+    "  4. No image. Hero at industries-healthcare-hero.png was undeclared.",
+    "  5. areaServed was plain strings.",
+    "  6. No link between this page and the underlying service pages.",
+    "",
+    "RICH RESULT ELIGIBILITY: Breadcrumbs.",
+    "Strip all _README and _comment keys before shipping."
+  ],
+
+  "@context": "https://schema.org",
+  "@graph": [
+
+    {
+      "_comment": "SHARED BUSINESS NODE — ship the COMPLETE version from _business-node.jsonld.",
+      "@type": "RecyclingCenter",
+      "@id": "https://core-asset-sol.com/#organization",
+      "name": "Core Asset Solutions",
+      "url": "https://core-asset-sol.com/",
+      "email": "info@core-asset-sol.com",
+      "telephone": "+1-513-433-7818",
+      "priceRange": "$$",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://core-asset-sol.com/#logo",
+        "url": "https://core-asset-sol.com/assets/logo_website_final_cropped2.png",
+        "width": 402, "height": 372, "caption": "Core Asset Solutions"
+      },
+      "image": { "@id": "https://core-asset-sol.com/#logo" },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "457 S Cooper Ave.",
+        "addressLocality": "Lockland",
+        "addressRegion": "OH",
+        "postalCode": "45215",
+        "addressCountry": "US"
+      },
+      "geo": { "@type": "GeoCoordinates", "latitude": "39.2241279", "longitude": "-84.4604809" },
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "08:00", "closes": "18:00"
+      }],
+      "areaServed": [
+        { "@type": "GeoCircle", "@id": "https://core-asset-sol.com/#pickup-radius",
+          "geoMidpoint": { "@type": "GeoCoordinates", "latitude": "39.2241279", "longitude": "-84.4604809" },
+          "geoRadius": "193121" },
+        { "@type": "State", "name": "Ohio" },
+        { "@type": "State", "name": "Indiana" },
+        { "@type": "State", "name": "Kentucky" },
+        { "@type": "City", "name": "Cincinnati", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Dayton", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Columbus", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Indianapolis", "containedInPlace": { "@type": "State", "name": "Indiana" } },
+        { "@type": "City", "name": "Louisville", "containedInPlace": { "@type": "State", "name": "Kentucky" } }
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/company/coreassetsolutions/",
+        "https://www.facebook.com/CoreAssetSolutions/",
+        "https://www.instagram.com/coreassetsolutions/",
+        "https://x.com/coreassetsol"
+      ]
+    },
+
+    {
+      "@type": "WebSite",
+      "@id": "https://core-asset-sol.com/#website",
+      "url": "https://core-asset-sol.com/",
+      "name": "Core Asset Solutions",
+      "inLanguage": "en-US",
+      "publisher": { "@id": "https://core-asset-sol.com/#organization" }
+    },
+
+    {
+      "_comment_image": "Current file is 453x302 — this is your SMALLEST hero and it is too small to be useful for image-bearing results or social sharing. Re-export at 1200x630 WebP and update width/height. og:image on this page currently points at the logo; point it here.",
+      "@type": "ImageObject",
+      "@id": "https://core-asset-sol.com/industries-served/healthcare#primaryimage",
+      "url": "https://core-asset-sol.com/assets/industries-services-hero/industries-healthcare-hero.png",
+      "contentUrl": "https://core-asset-sol.com/assets/industries-services-hero/industries-healthcare-hero.png",
+      "width": 453,
+      "height": 302,
+      "caption": "Healthcare electronics recycling and PHI media sanitization for hospitals and health systems",
+      "representativeOfPage": true
+    },
+
+    {
+      "@type": "WebPage",
+      "@id": "https://core-asset-sol.com/industries-served/healthcare#webpage",
+      "url": "https://core-asset-sol.com/industries-served/healthcare",
+      "name": "Healthcare Electronics Recycling & Certified Data Destruction",
+      "description": "REPLACE_WITH_YOUR_UPDATED_META_DESCRIPTION — must match the page's meta description exactly.",
+      "isPartOf": { "@id": "https://core-asset-sol.com/#website" },
+      "about": { "@id": "https://core-asset-sol.com/industries-served/healthcare#service" },
+      "mainEntity": { "@id": "https://core-asset-sol.com/industries-served/healthcare#service" },
+      "breadcrumb": { "@id": "https://core-asset-sol.com/industries-served/healthcare#breadcrumb" },
+      "primaryImageOfPage": { "@id": "https://core-asset-sol.com/industries-served/healthcare#primaryimage" },
+      "provider": { "@id": "https://core-asset-sol.com/#organization" },
+      "inLanguage": "en-US",
+      "lastReviewed": "REPLACE_WITH_ISO_DATE"
+    },
+
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://core-asset-sol.com/industries-served/healthcare#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://core-asset-sol.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Industries Served", "item": "https://core-asset-sol.com/industries-served" },
+        { "@type": "ListItem", "position": 3, "name": "Healthcare", "item": "https://core-asset-sol.com/industries-served/healthcare" }
+      ]
+    },
+
+    {
+      "@type": "Service",
+      "@id": "https://core-asset-sol.com/industries-served/healthcare#service",
+      "name": "Healthcare Electronics Recycling & ITAD",
+      "serviceType": "Electronics Recycling and IT Asset Disposition for Healthcare Organizations",
+      "url": "https://core-asset-sol.com/industries-served/healthcare",
+      "description": "Healthcare electronics recycling, PHI-bearing media sanitization, and medical equipment disposition for hospitals, health systems, clinics and laboratories across Ohio, Indiana and Kentucky, with HIPAA and HITECH aligned chain of custody and audit-ready documentation.",
+      "image": { "@id": "https://core-asset-sol.com/industries-served/healthcare#primaryimage" },
+      "provider": { "@id": "https://core-asset-sol.com/#organization" },
+      "mainEntityOfPage": { "@id": "https://core-asset-sol.com/industries-served/healthcare#webpage" },
+      "providerMobility": "dynamic",
+
+      "_comment_audience": [
+        "MedicalAudience instead of the generic Audience your live markup uses. It is a real",
+        "schema.org type and it is the single clearest signal that this page is scoped to",
+        "healthcare rather than being another general recycling page.",
+        "",
+        "Add the enterprise qualifier here too — this is where Fortune 500 / large health system",
+        "targeting belongs in the markup. See README.md §5: structured data supports the",
+        "targeting, but the content has to carry it."
+      ],
+      "audience": [
+        {
+          "@type": "MedicalAudience",
+          "audienceType": "Hospitals, health systems, outpatient clinics, diagnostic laboratories and medical device operators",
+          "geographicArea": { "@id": "https://core-asset-sol.com/#pickup-radius" }
+        },
+        {
+          "@type": "BusinessAudience",
+          "audienceType": "Multi-site health system IT, HIM, compliance and privacy officers",
+          "numberOfEmployees": {
+            "@type": "QuantitativeValue",
+            "minValue": 500
+          }
+        }
+      ],
+
+      "_comment_relations": [
+        "Links this industry page back to the core service pages it is built from. Without these,",
+        "Google sees eight industry pages and seven service pages as fourteen unrelated things.",
+        "With them, it understands the matrix: these services, delivered to these sectors."
+      ],
+      "isRelatedTo": [
+        { "@id": "https://core-asset-sol.com/services/data-destruction#service" },
+        { "@id": "https://core-asset-sol.com/services/electronics-recycling#service" },
+        { "@id": "https://core-asset-sol.com/services/hard-drive-destruction#service" },
+        { "@id": "https://core-asset-sol.com/services/asset-tracking-reporting#service" }
+      ],
+
+      "areaServed": [
+        { "@id": "https://core-asset-sol.com/#pickup-radius" },
+        { "@type": "State", "name": "Ohio" },
+        { "@type": "State", "name": "Indiana" },
+        { "@type": "State", "name": "Kentucky" },
+        { "@type": "City", "name": "Cincinnati", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Dayton", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Columbus", "containedInPlace": { "@type": "State", "name": "Ohio" } },
+        { "@type": "City", "name": "Indianapolis", "containedInPlace": { "@type": "State", "name": "Indiana" } },
+        { "@type": "City", "name": "Louisville", "containedInPlace": { "@type": "State", "name": "Kentucky" } }
+      ],
+
+      "_comment_compliance": [
+        "THE HEALTHCARE-SPECIFIC REGIME. This block is what differs from every other industry",
+        "page. On /financial-services it becomes GLBA + PCI DSS + SOX; on /education, FERPA;",
+        "on /government, FISMA + NIST 800-171.",
+        "",
+        "Claim only what you actually do. 'HIPAA compliant' is a phrase to avoid — no vendor is",
+        "certified HIPAA compliant, because HIPAA has no certification body. 'HIPAA-aligned' and",
+        "'supports your HIPAA compliance obligations' are accurate and defensible. Note the",
+        "Business Associate Agreement entry: for a healthcare buyer that is often the single",
+        "most important procurement question, and almost no competitor states it in markup."
+      ],
+      "additionalProperty": [
+        { "@type": "PropertyValue", "name": "Primary regulatory framework", "value": "HIPAA Security Rule (45 CFR Part 164 Subpart C)" },
+        { "@type": "PropertyValue", "name": "Secondary regulatory framework", "value": "HITECH Act breach notification requirements" },
+        { "@type": "PropertyValue", "name": "Sanitization standard", "value": "NIST SP 800-88 Rev. 2 Purge and Destroy for PHI-bearing media" },
+        { "@type": "PropertyValue", "name": "Business Associate Agreement", "value": "BAA executed prior to engagement" },
+        { "@type": "PropertyValue", "name": "PHI handling", "value": "Serialized chain of custody from point of collection through verified sanitization" },
+        { "@type": "PropertyValue", "name": "Documentation provided", "value": "Certificate of Destruction and Certificate of Media Sanitization, formatted for HIPAA audit evidence" },
+        { "@type": "PropertyValue", "name": "Specialty equipment handled", "value": "Imaging systems (MRI, CT, ultrasound), infusion pumps, patient monitors, laboratory instruments and embedded-storage medical devices" },
+        { "@type": "PropertyValue", "name": "On-site service available", "value": "Yes — sanitization and destruction can be performed at the hospital or clinic facility" }
+      ],
+
+      "about": [
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://core-asset-sol.com/#term-hipaa",
+          "name": "HIPAA Security Rule",
+          "description": "United States regulation establishing national standards for protecting electronic protected health information, including requirements for the disposal of media containing ePHI.",
+          "url": "https://www.hhs.gov/hipaa/for-professionals/security/index.html",
+          "inDefinedTermSet": {
+            "@type": "DefinedTermSet",
+            "name": "U.S. Department of Health and Human Services HIPAA Regulations",
+            "url": "https://www.hhs.gov/hipaa/"
+          }
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://core-asset-sol.com/#term-hitech",
+          "name": "HITECH Act",
+          "description": "Health Information Technology for Economic and Clinical Health Act, which strengthened HIPAA enforcement and established breach notification requirements for unsecured protected health information.",
+          "url": "https://www.hhs.gov/hipaa/for-professionals/special-topics/hitech-act-enforcement-interim-final-rule/index.html",
+          "inDefinedTermSet": {
+            "@type": "DefinedTermSet",
+            "name": "U.S. Department of Health and Human Services HIPAA Regulations",
+            "url": "https://www.hhs.gov/hipaa/"
+          }
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://core-asset-sol.com/#term-nist-800-88",
+          "name": "NIST SP 800-88 Rev. 2",
+          "description": "NIST Guidelines for Media Sanitization, defining the Clear, Purge and Destroy sanitization categories referenced by HIPAA media disposal guidance.",
+          "url": "https://csrc.nist.gov/pubs/sp/800/88/r2/ipd",
+          "inDefinedTermSet": {
+            "@type": "DefinedTermSet",
+            "name": "NIST Special Publications",
+            "url": "https://csrc.nist.gov/publications/sp"
+          }
+        }
+      ],
+
+      "serviceOutput": {
+        "@type": "Thing",
+        "name": "HIPAA audit-ready Certificate of Destruction",
+        "description": "Serialized documentation listing each device, the sanitization method applied, verification results and final disposition, formatted as evidence for HIPAA Security Rule media disposal requirements."
+      },
+
+      "availableChannel": {
+        "@type": "ServiceChannel",
+        "name": "Schedule a healthcare ITAD consultation",
+        "serviceUrl": "https://core-asset-sol.com/schedule-consultation-form",
+        "servicePhone": "+1-513-433-7818",
+        "serviceLocation": { "@id": "https://core-asset-sol.com/#organization" }
+      },
+
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Healthcare ITAD Services",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "PHI media sanitization", "description": "NIST 800-88r2 Purge and Destroy for drives, embedded storage and removable media containing protected health information." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Medical imaging equipment disposition", "description": "Decommissioning and data sanitization for MRI, CT, ultrasound and other imaging systems with embedded patient data." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Clinical device recycling", "description": "R2v3 downstream recycling for infusion pumps, patient monitors and laboratory instruments." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Multi-site health system programs", "description": "Coordinated collection and consolidated reporting across hospital networks and outpatient sites." } }
+        ]
+      }
+    },
+
+    {
+      "_comment_faq": "KEEP your existing 7 questions verbatim. FAQ rich results ended 7 May 2026, but the markup still aids comprehension and other engines. Ensure the answers are in the rendered HTML.",
+      "@type": "FAQPage",
+      "@id": "https://core-asset-sol.com/industries-served/healthcare#faq",
+      "url": "https://core-asset-sol.com/industries-served/healthcare",
+      "isPartOf": { "@id": "https://core-asset-sol.com/industries-served/healthcare#webpage" },
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How does Core Asset Solutions handle protected health information (PHI) on medical devices?",
+          "acceptedAnswer": { "@type": "Answer", "text": "KEEP_YOUR_EXISTING_ANSWER_TEXT" }
+        },
+        {
+          "_comment": "...your remaining 6 questions unchanged..."
+        }
+      ]
+    }
+  ]
+}

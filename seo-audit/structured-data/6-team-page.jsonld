@@ -1,0 +1,302 @@
+{
+  "_README": [
+    "TEMPLATE 6 — /about/team  (THREE team members)",
+    "",
+    "=========================================================================",
+    "READ THIS FIRST: a three-person team page is NOT a ProfilePage.",
+    "=========================================================================",
+    "Google's ProfilePage requirement is explicit: 'The primary focus of the page must be a",
+    "single person or organization.' A page listing three people has three primary subjects, so",
+    "it fails that test. ProfilePage takes one mainEntity, not a list.",
+    "",
+    "I recommended ProfilePage for this page in an earlier note. That was wrong and this",
+    "template supersedes it.",
+    "",
+    "CORRECT STRUCTURE FOR A TEAM PAGE:",
+    "    CollectionPage  +  ItemList  +  three Person nodes, each with a stable @id",
+    "",
+    "WHEN ProfilePage IS CORRECT:",
+    "    One page per person — /about/team/will-gibson — with mainEntity being that one Person.",
+    "    Google's own examples of valid profile pages include 'an employee page on a company",
+    "    website', so individual pages qualify; the roster page does not.",
+    "",
+    "SHOULD YOU BUILD INDIVIDUAL PAGES? Not yet. Three thin bio pages are worse than one good",
+    "team page. Build them only when a person has enough substance to justify a URL: a real",
+    "biography, verifiable credentials, and ideally authored content on the site. Will Gibson is",
+    "the likely first candidate if he is authoring the resources pages. Until then, the stable",
+    "@ids below do the same job — they give each person a permanent identifier that Article",
+    "author references can point at.",
+    "",
+    "RICH RESULT ELIGIBILITY: Breadcrumbs only. Person and ProfilePage produce no rich result.",
+    "The value is E-E-A-T and entity understanding, which is exactly what you want if these",
+    "people are going to be named as authors.",
+    "",
+    "Strip all _README and _comment keys before shipping."
+  ],
+
+  "@context": "https://schema.org",
+  "@graph": [
+
+    {
+      "_comment": "SHARED BUSINESS NODE — ship the COMPLETE version from _business-node.jsonld.",
+      "@type": "RecyclingCenter",
+      "@id": "https://core-asset-sol.com/#organization",
+      "name": "Core Asset Solutions",
+      "url": "https://core-asset-sol.com/",
+      "email": "info@core-asset-sol.com",
+      "telephone": "+1-513-433-7818",
+      "priceRange": "$$",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://core-asset-sol.com/#logo",
+        "url": "https://core-asset-sol.com/assets/logo_website_final_cropped2.png",
+        "width": 402, "height": 372, "caption": "Core Asset Solutions"
+      },
+      "image": { "@id": "https://core-asset-sol.com/#logo" },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "457 S Cooper Ave.",
+        "addressLocality": "Lockland",
+        "addressRegion": "OH",
+        "postalCode": "45215",
+        "addressCountry": "US"
+      },
+      "geo": { "@type": "GeoCoordinates", "latitude": "39.2241279", "longitude": "-84.4604809" },
+
+      "_comment_company_linkedin": "COMPANY LinkedIn — /company/ path. Belongs to the Organization only.",
+      "sameAs": [
+        "https://www.linkedin.com/company/coreassetsolutions/",
+        "https://www.facebook.com/CoreAssetSolutions/",
+        "https://www.instagram.com/coreassetsolutions/",
+        "https://x.com/coreassetsol"
+      ]
+    },
+
+    {
+      "@type": "WebSite",
+      "@id": "https://core-asset-sol.com/#website",
+      "url": "https://core-asset-sol.com/",
+      "name": "Core Asset Solutions",
+      "inLanguage": "en-US",
+      "publisher": { "@id": "https://core-asset-sol.com/#organization" }
+    },
+
+    {
+      "@type": "CollectionPage",
+      "@id": "https://core-asset-sol.com/about/team#webpage",
+      "url": "https://core-asset-sol.com/about/team",
+      "name": "Meet the Team | Core Asset Solutions",
+      "description": "REPLACE_WITH_META_DESCRIPTION",
+      "isPartOf": { "@id": "https://core-asset-sol.com/#website" },
+      "about": { "@id": "https://core-asset-sol.com/#organization" },
+      "breadcrumb": { "@id": "https://core-asset-sol.com/about/team#breadcrumb" },
+      "mainEntity": { "@id": "https://core-asset-sol.com/about/team#team-list" },
+      "inLanguage": "en-US"
+    },
+
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://core-asset-sol.com/about/team#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://core-asset-sol.com/" },
+        { "@type": "ListItem", "position": 2, "name": "About", "item": "https://core-asset-sol.com/about" },
+        { "@type": "ListItem", "position": 3, "name": "Team", "item": "https://core-asset-sol.com/about/team" }
+      ]
+    },
+
+    {
+      "@type": "ItemList",
+      "@id": "https://core-asset-sol.com/about/team#team-list",
+      "name": "Core Asset Solutions Team",
+      "numberOfItems": 3,
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "item": { "@id": "https://core-asset-sol.com/about/team#will-gibson" } },
+        { "@type": "ListItem", "position": 2, "item": { "@id": "https://core-asset-sol.com/about/team#REPLACE-person-two" } },
+        { "@type": "ListItem", "position": 3, "item": { "@id": "https://core-asset-sol.com/about/team#REPLACE-person-three" } }
+      ]
+    },
+
+    {
+      "_comment_person": [
+        "=====================================================================",
+        "PERSON 1 — the fully worked example. Copy this shape for the other two.",
+        "=====================================================================",
+        "",
+        "THE @id IS THE MOST IMPORTANT LINE IN THIS NODE.",
+        "It is Will Gibson's permanent identifier across the whole site. Once it exists, every",
+        "Article he writes references { '@id': 'https://core-asset-sol.com/about/team#will-gibson' }",
+        "instead of repeating his bio, and you update his details in exactly one place.",
+        "Never change it once published — changing an @id creates a new entity and discards the",
+        "association Google has built."
+      ],
+      "@type": "Person",
+      "@id": "https://core-asset-sol.com/about/team#will-gibson",
+      "name": "Will Gibson",
+      "jobTitle": "REPLACE_WITH_ACTUAL_TITLE",
+      "description": "REPLACE_WITH_2_TO_4_SENTENCE_BIO. Say what he actually does, how long he has done it, and what he is accountable for. Generic filler adds nothing — specificity is the whole E-E-A-T signal.",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://core-asset-sol.com/assets/team/REPLACE-will-gibson.jpg",
+        "width": 800,
+        "height": 800,
+        "caption": "Will Gibson, Core Asset Solutions"
+      },
+      "url": "https://core-asset-sol.com/about/team",
+
+      "_comment_worksFor": [
+        "THIS is how the person and the company are linked — NOT by sharing sameAs URLs.",
+        "worksFor points at the organization entity by @id. It creates the employment",
+        "relationship while keeping the two entities completely separate."
+      ],
+      "worksFor": { "@id": "https://core-asset-sol.com/#organization" },
+
+      "_comment_sameAs": [
+        "=====================================================================",
+        "PERSONAL LinkedIn vs COMPANY LinkedIn — how to keep them apart",
+        "=====================================================================",
+        "",
+        "The two URL shapes are structurally different and LinkedIn itself enforces this:",
+        "    PERSON  -> https://www.linkedin.com/in/<member-handle>",
+        "    COMPANY -> https://www.linkedin.com/company/<company-slug>",
+        "",
+        "Rules:",
+        "  1. The /in/ URL goes in Person.sameAs. ONLY here.",
+        "  2. The /company/ URL goes in Organization.sameAs. ONLY there.",
+        "  3. NEVER put both in the same sameAs array. sameAs means 'this is the same entity",
+        "     as that'. Listing the company page under Will's Person node literally asserts that",
+        "     Will Gibson IS Core Asset Solutions, which is exactly the conflation you want to",
+        "     avoid.",
+        "  4. Express the relationship with worksFor above, not with sameAs.",
+        "",
+        "Because the nodes carry distinct @ids and distinct sameAs arrays, there is no ambiguity",
+        "for Google to resolve — the separation is structural, not a matter of interpretation."
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/in/REPLACE-will-gibson-handle"
+      ],
+
+      "knowsAbout": [
+        "IT Asset Disposition",
+        "NIST 800-88 Media Sanitization",
+        "R2v3 Responsible Recycling",
+        "ESG and Scope 3 Reporting",
+        "Circular Economy for IT Hardware"
+      ],
+
+      "_comment_credential": [
+        "=====================================================================",
+        "hasCredential — the ESG certificate",
+        "=====================================================================",
+        "",
+        "EXPECTATIONS BEFORE YOU SHIP: Google has NO rich result for credentials. Nothing will",
+        "render in the SERP, and the Rich Results Test will report no eligible enhancement. The",
+        "value is entity understanding, E-E-A-T, and corroboration with the LinkedIn profile.",
+        "Ship it for those reasons, not for pixels.",
+        "",
+        "(These terms sit in schema.org's pending layer. That is not a reason to avoid them —",
+        "so do provider, jobTitle and knowsAbout, which are universally used and consumed. It",
+        "just means the vocabulary is still evolving.)",
+        "",
+        "PROPERTY-BY-PROPERTY:",
+        "  credentialCategory  what kind of thing it is: 'certificate', 'certification', 'degree'",
+        "  recognizedBy        the ISSUING BODY as an Organization. This is the authority claim",
+        "  identifier          the certificate ID — see the note below",
+        "  url                 the ISSUER'S verification page, not LinkedIn",
+        "  dateCreated         when it was earned",
+        "  expires             omit if it does not expire; do not guess",
+        "",
+        "=====================================================================",
+        "Referencing a certificate ID that is already on LinkedIn",
+        "=====================================================================",
+        "",
+        "LinkedIn is a DISPLAY of the credential, not the authority for it. So:",
+        "",
+        "  DO   use PropertyValue for the ID, with propertyID naming the issuing scheme and",
+        "       value holding the ID. Structured beats a bare string because it says WHOSE",
+        "       identifier this is.",
+        "  DO   make the value string byte-identical to what appears in the LinkedIn credential",
+        "       entry. That exact match is the whole corroboration mechanism — a crawler or a",
+        "       human procurement reviewer can line the two up.",
+        "  DO   put the ISSUER'S verification URL in url, if the issuer publishes one.",
+        "  DO   keep Will's LinkedIn profile in sameAs above. That is what lets Google connect",
+        "       your Person entity to the LinkedIn profile where the same credential is listed.",
+        "       The link happens at the PERSON level, not the credential level.",
+        "",
+        "  DON'T put the LinkedIn URL in the credential's url. LinkedIn credentials are",
+        "       self-reported; pointing there presents a self-assertion as verification.",
+        "  DON'T invent a certificate number. Google does not verify these, but a fabricated",
+        "       credential on a compliance vendor's site is a trust problem far beyond SEO.",
+        "",
+        "If the certificate has no public verification URL, delete the url property and keep",
+        "identifier + recognizedBy. That is honest and still useful.",
+        "",
+        "The example below is shaped for a typical ESG credential. Replace every value."
+      ],
+      "hasCredential": [
+        {
+          "@type": "EducationalOccupationalCredential",
+          "@id": "https://core-asset-sol.com/about/team#will-gibson-esg-credential",
+          "name": "REPLACE_WITH_EXACT_CREDENTIAL_NAME_AS_ISSUED",
+          "description": "REPLACE — one sentence on what the credential covers and why it is relevant to ITAD sustainability reporting.",
+          "credentialCategory": "certificate",
+          "recognizedBy": {
+            "@type": "Organization",
+            "name": "REPLACE_WITH_ISSUING_BODY_NAME",
+            "url": "REPLACE_WITH_ISSUING_BODY_URL"
+          },
+          "identifier": {
+            "@type": "PropertyValue",
+            "propertyID": "REPLACE_WITH_ISSUER_NAME_OR_SCHEME",
+            "name": "Credential ID",
+            "value": "REPLACE_WITH_THE_EXACT_ID_STRING_SHOWN_ON_LINKEDIN"
+          },
+          "url": "REPLACE_WITH_ISSUER_VERIFICATION_URL_OR_DELETE_THIS_PROPERTY",
+          "dateCreated": "REPLACE_WITH_ISO_DATE_EARNED",
+          "_comment_expires": "Delete this property entirely if the credential does not expire. Do not guess a date.",
+          "expires": "REPLACE_WITH_ISO_DATE_OR_DELETE"
+        }
+      ],
+
+      "_comment_subjectOf": "Add once he has authored content. Points from the person to what they wrote — the reverse of Article.author. Optional but it closes the loop.",
+      "subjectOf": { "@id": "https://core-asset-sol.com/resources/itad-circular-economy#article" }
+    },
+
+    {
+      "_comment": "PERSON 2 — same shape. Delete hasCredential if this person holds none; an empty or invented credential is worse than none.",
+      "@type": "Person",
+      "@id": "https://core-asset-sol.com/about/team#REPLACE-person-two",
+      "name": "REPLACE_WITH_FULL_NAME",
+      "jobTitle": "REPLACE_WITH_ACTUAL_TITLE",
+      "description": "REPLACE_WITH_BIO",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://core-asset-sol.com/assets/team/REPLACE-person-two.jpg",
+        "width": 800, "height": 800,
+        "caption": "REPLACE_WITH_NAME, Core Asset Solutions"
+      },
+      "url": "https://core-asset-sol.com/about/team",
+      "worksFor": { "@id": "https://core-asset-sol.com/#organization" },
+      "sameAs": ["https://www.linkedin.com/in/REPLACE-person-two-handle"],
+      "knowsAbout": ["REPLACE", "REPLACE"]
+    },
+
+    {
+      "_comment": "PERSON 3 — same shape.",
+      "@type": "Person",
+      "@id": "https://core-asset-sol.com/about/team#REPLACE-person-three",
+      "name": "REPLACE_WITH_FULL_NAME",
+      "jobTitle": "REPLACE_WITH_ACTUAL_TITLE",
+      "description": "REPLACE_WITH_BIO",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://core-asset-sol.com/assets/team/REPLACE-person-three.jpg",
+        "width": 800, "height": 800,
+        "caption": "REPLACE_WITH_NAME, Core Asset Solutions"
+      },
+      "url": "https://core-asset-sol.com/about/team",
+      "worksFor": { "@id": "https://core-asset-sol.com/#organization" },
+      "sameAs": ["https://www.linkedin.com/in/REPLACE-person-three-handle"],
+      "knowsAbout": ["REPLACE", "REPLACE"]
+    }
+  ]
+}

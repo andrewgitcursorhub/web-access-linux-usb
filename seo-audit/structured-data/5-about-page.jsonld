@@ -1,0 +1,132 @@
+{
+  "_README": [
+    "TEMPLATE 5 — /about  (the ORGANIZATION about page)",
+    "",
+    "USE AboutPage HERE, NOT ProfilePage.",
+    "",
+    "Google's ProfilePage guidelines require that 'the primary focus of the page must be a",
+    "single person or organization.' Their own list of what does NOT qualify includes pages",
+    "that 'contain lots of non-profile info'. Your /about page has Company Overview, The Client",
+    "Experience, a resources block and Meet the Team — four different subjects. That is an",
+    "AboutPage.",
+    "",
+    "Your live markup already uses AboutPage. Keep it. This template just completes it.",
+    "",
+    "WHAT CHANGES vs your live markup",
+    "  1. The Organization inside mainEntity was a stub missing address, contactPoint, sameAs",
+    "     and telephone. Replaced with a reference to the shared business node.",
+    "  2. No image, no breadcrumb link, no isPartOf.",
+    "  3. Once the team content moves to /about/team, add the significantLink / relatedLink",
+    "     pointer shown at the bottom so the two pages are connected.",
+    "",
+    "RICH RESULT ELIGIBILITY: Breadcrumbs, plus the Organization entity signals. AboutPage",
+    "itself produces no rich result.",
+    "",
+    "Strip all _README and _comment keys before shipping."
+  ],
+
+  "@context": "https://schema.org",
+  "@graph": [
+
+    {
+      "_comment": "SHARED BUSINESS NODE — ship the COMPLETE version from _business-node.jsonld. Abbreviated here for readability.",
+      "@type": "RecyclingCenter",
+      "@id": "https://core-asset-sol.com/#organization",
+      "name": "Core Asset Solutions",
+      "url": "https://core-asset-sol.com/",
+      "email": "info@core-asset-sol.com",
+      "telephone": "+1-513-433-7818",
+      "priceRange": "$$",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://core-asset-sol.com/#logo",
+        "url": "https://core-asset-sol.com/assets/logo_website_final_cropped2.png",
+        "width": 402, "height": 372, "caption": "Core Asset Solutions"
+      },
+      "image": { "@id": "https://core-asset-sol.com/#logo" },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "457 S Cooper Ave.",
+        "addressLocality": "Lockland",
+        "addressRegion": "OH",
+        "postalCode": "45215",
+        "addressCountry": "US"
+      },
+      "geo": { "@type": "GeoCoordinates", "latitude": "39.2241279", "longitude": "-84.4604809" },
+
+      "_comment_sameAs": [
+        "THE COMPANY LinkedIn page lives HERE and ONLY here.",
+        "Note the URL shape: linkedin.com/COMPANY/... — that path segment is what distinguishes",
+        "an organization page from a member profile. Personal profiles use linkedin.com/IN/...",
+        "and belong on the Person node, never in this array. See 6-team-page.jsonld."
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/company/coreassetsolutions/",
+        "https://www.facebook.com/CoreAssetSolutions/",
+        "https://www.instagram.com/coreassetsolutions/",
+        "https://x.com/coreassetsol"
+      ],
+
+      "_comment_employee": [
+        "Optional but useful once /about/team exists. Links the org to its people by @id, which",
+        "is what lets Google connect an article author to the company without you repeating the",
+        "person's details on every page.",
+        "Only list people who actually have a Person node defined somewhere on the site."
+      ],
+      "employee": [
+        { "@id": "https://core-asset-sol.com/about/team#will-gibson" },
+        { "@id": "https://core-asset-sol.com/about/team#REPLACE-person-two" },
+        { "@id": "https://core-asset-sol.com/about/team#REPLACE-person-three" }
+      ]
+    },
+
+    {
+      "@type": "WebSite",
+      "@id": "https://core-asset-sol.com/#website",
+      "url": "https://core-asset-sol.com/",
+      "name": "Core Asset Solutions",
+      "inLanguage": "en-US",
+      "publisher": { "@id": "https://core-asset-sol.com/#organization" }
+    },
+
+    {
+      "_comment": "Add a real photo of the facility or team here — not the logo. /about currently has no declared image and og:image points at the logo.",
+      "@type": "ImageObject",
+      "@id": "https://core-asset-sol.com/about#primaryimage",
+      "url": "https://core-asset-sol.com/assets/REPLACE-about-hero.png",
+      "contentUrl": "https://core-asset-sol.com/assets/REPLACE-about-hero.png",
+      "width": 1200,
+      "height": 630,
+      "caption": "Core Asset Solutions, IT asset disposition and electronics recycling in Lockland, Ohio",
+      "representativeOfPage": true
+    },
+
+    {
+      "@type": "AboutPage",
+      "@id": "https://core-asset-sol.com/about#webpage",
+      "url": "https://core-asset-sol.com/about",
+      "name": "About Core Asset Solutions",
+      "description": "REPLACE_WITH_YOUR_UPDATED_META_DESCRIPTION",
+      "isPartOf": { "@id": "https://core-asset-sol.com/#website" },
+      "breadcrumb": { "@id": "https://core-asset-sol.com/about#breadcrumb" },
+      "primaryImageOfPage": { "@id": "https://core-asset-sol.com/about#primaryimage" },
+      "inLanguage": "en-US",
+
+      "_comment_mainEntity": "A bare @id reference, because the full node is already in this graph. This is what your live markup was reaching for with its 4-property Organization stub.",
+      "mainEntity": { "@id": "https://core-asset-sol.com/#organization" },
+      "about": { "@id": "https://core-asset-sol.com/#organization" },
+
+      "_comment_relatedLink": "Add once /about/team exists. Makes the parent/child relationship explicit rather than relying on the nav link alone.",
+      "relatedLink": "https://core-asset-sol.com/about/team"
+    },
+
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://core-asset-sol.com/about#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://core-asset-sol.com/" },
+        { "@type": "ListItem", "position": 2, "name": "About", "item": "https://core-asset-sol.com/about" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,240 @@
+{
+  "_README": [
+    "TEMPLATE 7 — ARTICLE  (/resources/itad-circular-economy)",
+    "",
+    "=========================================================================",
+    "WHEN TO USE Article — and why only ONE of your two resource pages qualifies",
+    "=========================================================================",
+    "",
+    "Article describes EDITORIAL content: something written, by someone, on a date, that",
+    "teaches or argues. It is not a wrapper you add to make a page look authoritative.",
+    "",
+    "Google's structured data policy requires markup to match the page. Their guidance is",
+    "explicit that Article does not belong on service pages, product pages, category pages or",
+    "marketing landing pages, and misrepresenting page type can draw a manual action.",
+    "",
+    "I read both of your resource pages. They are not the same kind of page:",
+    "",
+    "  /resources/itad-circular-economy   1,405 words in <main>.  ARTICLE. Ship this template.",
+    "     Genuinely editorial. It explains IEEE 2883 and media sanitization standards, argues",
+    "     that physical destruction alone is often not the secure choice, walks through GHG",
+    "     accounting for circular models, and compares emissions impact of reuse vs recycling.",
+    "     It teaches. It has a thesis. That is an article.",
+    "",
+    "  /resources/reporting-esg           524 words in <main>.  NOT AN ARTICLE.",
+    "     Read the H2s: 'ITAD Recorded Sustainability Metrics' and 'What Every Reporting",
+    "     Engagement Delivers'. The body says 'CAS organizes the reporting so...' and lists what",
+    "     a client receives. That is a SERVICE description wearing a resources URL. Marking it",
+    "     Article would misrepresent it, and at 524 words it would be a thin one.",
+    "     -> Mark it up as Service + WebPage instead (template 3 pattern), OR rewrite it into a",
+    "        real article about ESG reporting for ITAD — what Scope 3 category 5 actually",
+    "        requires, how the EPA WARM model works, where avoided-emissions claims break down —",
+    "        and then apply this template. Do not just relabel it.",
+    "",
+    "=========================================================================",
+    "REQUIREMENTS",
+    "=========================================================================",
+    "Google states there are NO strictly required properties for Article. But for rich result",
+    "eligibility you should treat these three as required: headline, image, datePublished.",
+    "Strongly recommended: author, dateModified, publisher, description.",
+    "",
+    "=========================================================================",
+    "SET EXPECTATIONS ON THE PAYOFF",
+    "=========================================================================",
+    "The Article rich result mainly powers Top Stories and Discover, both news-oriented. A B2B",
+    "ITAD resource page will realistically get a date in the snippet and little else visually.",
+    "",
+    "That is not the reason to do it. The reason is author attribution and freshness dates,",
+    "which are real E-E-A-T inputs, and clean authorship is one of the strongest signals",
+    "available for AI Overview and LLM citation. For a company selling regulatory compliance,",
+    "a named expert with verifiable credentials attached to technical content is worth more",
+    "than the rich result would have been.",
+    "",
+    "Strip all _README and _comment keys before shipping."
+  ],
+
+  "@context": "https://schema.org",
+  "@graph": [
+
+    {
+      "_comment": "SHARED BUSINESS NODE — ship the COMPLETE version from _business-node.jsonld.",
+      "@type": "RecyclingCenter",
+      "@id": "https://core-asset-sol.com/#organization",
+      "name": "Core Asset Solutions",
+      "url": "https://core-asset-sol.com/",
+      "email": "info@core-asset-sol.com",
+      "telephone": "+1-513-433-7818",
+      "priceRange": "$$",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://core-asset-sol.com/#logo",
+        "url": "https://core-asset-sol.com/assets/logo_website_final_cropped2.png",
+        "width": 402, "height": 372, "caption": "Core Asset Solutions"
+      },
+      "image": { "@id": "https://core-asset-sol.com/#logo" },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "457 S Cooper Ave.",
+        "addressLocality": "Lockland",
+        "addressRegion": "OH",
+        "postalCode": "45215",
+        "addressCountry": "US"
+      },
+      "geo": { "@type": "GeoCoordinates", "latitude": "39.2241279", "longitude": "-84.4604809" },
+      "sameAs": [
+        "https://www.linkedin.com/company/coreassetsolutions/",
+        "https://www.facebook.com/CoreAssetSolutions/",
+        "https://www.instagram.com/coreassetsolutions/",
+        "https://x.com/coreassetsol"
+      ]
+    },
+
+    {
+      "@type": "WebSite",
+      "@id": "https://core-asset-sol.com/#website",
+      "url": "https://core-asset-sol.com/",
+      "name": "Core Asset Solutions",
+      "inLanguage": "en-US",
+      "publisher": { "@id": "https://core-asset-sol.com/#organization" }
+    },
+
+    {
+      "_comment_image": [
+        "Article is one of the few types where Google explicitly wants LARGE images — 1200px on",
+        "the long edge is the working minimum, and multiple aspect ratios (16x9, 4x3, 1x1) let",
+        "Google pick the best crop per surface.",
+        "",
+        "This page currently declares no image at all. Missing or undersized image is the single",
+        "most common reason Article markup fails to produce a result."
+      ],
+      "@type": "ImageObject",
+      "@id": "https://core-asset-sol.com/resources/itad-circular-economy#primaryimage",
+      "url": "https://core-asset-sol.com/assets/REPLACE-circular-economy-16x9.webp",
+      "contentUrl": "https://core-asset-sol.com/assets/REPLACE-circular-economy-16x9.webp",
+      "width": 1200,
+      "height": 675,
+      "caption": "Data sanitization and the circular economy for enterprise storage media",
+      "representativeOfPage": true
+    },
+
+    {
+      "@type": "WebPage",
+      "@id": "https://core-asset-sol.com/resources/itad-circular-economy#webpage",
+      "url": "https://core-asset-sol.com/resources/itad-circular-economy",
+      "name": "Data Sanitization & the Circular Economy",
+      "isPartOf": { "@id": "https://core-asset-sol.com/#website" },
+      "breadcrumb": { "@id": "https://core-asset-sol.com/resources/itad-circular-economy#breadcrumb" },
+      "primaryImageOfPage": { "@id": "https://core-asset-sol.com/resources/itad-circular-economy#primaryimage" },
+      "mainEntity": { "@id": "https://core-asset-sol.com/resources/itad-circular-economy#article" },
+      "inLanguage": "en-US"
+    },
+
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://core-asset-sol.com/resources/itad-circular-economy#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://core-asset-sol.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Resources", "item": "https://core-asset-sol.com/resources" },
+        { "@type": "ListItem", "position": 3, "name": "Data Sanitization & the Circular Economy", "item": "https://core-asset-sol.com/resources/itad-circular-economy" }
+      ]
+    },
+
+    {
+      "_comment_type": [
+        "TechArticle rather than plain Article. It is a valid Article subtype and it is a more",
+        "honest description of this content — technical, standards-referencing, written for a",
+        "professional audience. It inherits every Article property and is eligible for the same",
+        "treatment. Use plain Article if you prefer; use NewsArticle only for actual news, and",
+        "BlogPosting only if you build a real blog."
+      ],
+      "@type": "TechArticle",
+      "@id": "https://core-asset-sol.com/resources/itad-circular-economy#article",
+
+      "_comment_headline": "Keep under 110 characters and match the visible H1. Your H1 is 'Data Sanitization & the Circular Economy' — 40 characters, good.",
+      "headline": "Data Sanitization & the Circular Economy",
+
+      "description": "How NIST 800-88 and IEEE 2883 sanitization unlock reuse for enterprise storage media, and what that means for GHG accounting and circular business models.",
+
+      "image": { "@id": "https://core-asset-sol.com/resources/itad-circular-economy#primaryimage" },
+
+      "_comment_dates": [
+        "Both dates are ISO 8601 with a timezone offset. Include the offset — without it Google",
+        "assumes Googlebot's timezone.",
+        "",
+        "datePublished must be the real first-publication date. dateModified must be the real",
+        "last substantive edit. Do NOT bump dateModified on every deploy to fake freshness — an",
+        "accurate date is a useful signal, an inflated one is a liability, and Google compares",
+        "the claim against what actually changed.",
+        "",
+        "This page currently has neither date anywhere in the markup or the visible content.",
+        "Show them on the page too — the markup and the page must agree."
+      ],
+      "datePublished": "REPLACE_WITH_REAL_ISO_DATETIME_WITH_OFFSET",
+      "dateModified": "REPLACE_WITH_REAL_ISO_DATETIME_WITH_OFFSET",
+
+      "_comment_author": [
+        "=====================================================================",
+        "THE AUTHOR PATTERN — this is where template 6 pays off",
+        "=====================================================================",
+        "A bare @id reference to the Person node defined on /about/team. Nothing is duplicated",
+        "here: name, bio, LinkedIn, credentials all live in one place, and when Will's title or",
+        "credential changes you edit one file.",
+        "",
+        "Google's Article documentation recommends author.url point at a page that uniquely",
+        "identifies the author, and says that if it is an internal page you should mark that page",
+        "up with profile page structured data. So the progression is:",
+        "   now:   author -> @id on /about/team#will-gibson",
+        "   later: build /about/team/will-gibson as a real ProfilePage and repoint url there",
+        "",
+        "CRITICAL: the author must be a real named person who actually wrote this. Do not",
+        "attribute it to the company to avoid naming someone — 'author: Core Asset Solutions' is",
+        "legal schema but throws away the entire E-E-A-T benefit, which is the only reason to",
+        "add Article markup to a page like this."
+      ],
+      "author": { "@id": "https://core-asset-sol.com/about/team#will-gibson" },
+
+      "publisher": { "@id": "https://core-asset-sol.com/#organization" },
+      "isPartOf": { "@id": "https://core-asset-sol.com/#website" },
+      "mainEntityOfPage": { "@id": "https://core-asset-sol.com/resources/itad-circular-economy#webpage" },
+      "inLanguage": "en-US",
+
+      "articleSection": "ITAD & Sustainability",
+      "wordCount": 1405,
+
+      "_comment_about": [
+        "The standards this article actually discusses, as entities rather than keywords. Reuse",
+        "the same @ids you defined on the service pages so the whole site agrees on what",
+        "'NIST 800-88' refers to.",
+        "IEEE 2883 is named in the body but appears nowhere in the markup — add it."
+      ],
+      "about": [
+        { "@id": "https://core-asset-sol.com/#term-nist-800-88" },
+        {
+          "@type": "DefinedTerm",
+          "@id": "https://core-asset-sol.com/#term-ieee-2883",
+          "name": "IEEE 2883",
+          "description": "IEEE Standard for Sanitizing Storage, defining Clear, Purge and Destruct sanitization methods for modern storage media.",
+          "url": "https://standards.ieee.org/ieee/2883/10277/",
+          "inDefinedTermSet": { "@type": "DefinedTermSet", "name": "IEEE Standards", "url": "https://standards.ieee.org/" }
+        },
+        { "@id": "https://core-asset-sol.com/#term-r2v3" }
+      ],
+
+      "_comment_citation": [
+        "OPTIONAL BUT HIGH VALUE for a technical article. citation names the external sources the",
+        "article relies on. It does not produce a rich result, but it is a strong quality signal",
+        "and it is exactly the kind of provenance AI retrieval systems favour.",
+        "Only cite documents the article genuinely draws on."
+      ],
+      "citation": [
+        { "@type": "CreativeWork", "name": "NIST SP 800-88 Rev. 2, Guidelines for Media Sanitization", "url": "https://csrc.nist.gov/pubs/sp/800/88/r2/ipd" },
+        { "@type": "CreativeWork", "name": "IEEE 2883-2022, Standard for Sanitizing Storage", "url": "https://standards.ieee.org/ieee/2883/10277/" },
+        { "@type": "CreativeWork", "name": "EPA Waste Reduction Model (WARM)", "url": "https://www.epa.gov/warm" }
+      ],
+
+      "_comment_speakable": "Optional. Google restricts the Speakable feature to news content, so it will do nothing here. Included only so you know it exists; delete it.",
+
+      "isAccessibleForFree": true
+    }
+  ]
+}
